@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouAreTheVillain", "YouAreTheVillain\YouAreTheVillain\YouAreTheVillain.csproj", "{E2B3F570-B531-41A0-A1C5-C1AFB1E9D12A}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "YouAreTheVillainContent", "YouAreTheVillainContent\YouAreTheVillainContent.contentproj", "{208C82E7-20CB-4FDA-B8E5-B76459D3F996}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouAreTheVillainContent", "YouAreTheVillainContent\YouAreTheVillainContent.contentproj", "{208C82E7-20CB-4FDA-B8E5-B76459D3F996}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TiledLib", "TiledLib", "{5A8597CF-B7F2-4CD3-A685-2389C88B3A05}"
 EndProject
@@ -146,8 +146,6 @@ Global
 		{3F3D20EF-64E2-42C1-B825-F5C21A1F5112}.Debug|ARM.Build.0 = Debug|ARM
 		{3F3D20EF-64E2-42C1-B825-F5C21A1F5112}.Debug|ARM.Deploy.0 = Debug|ARM
 		{3F3D20EF-64E2-42C1-B825-F5C21A1F5112}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3F3D20EF-64E2-42C1-B825-F5C21A1F5112}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3F3D20EF-64E2-42C1-B825-F5C21A1F5112}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
 		{3F3D20EF-64E2-42C1-B825-F5C21A1F5112}.Debug|Windows Phone.ActiveCfg = Debug|Any CPU
 		{3F3D20EF-64E2-42C1-B825-F5C21A1F5112}.Debug|x64.ActiveCfg = Debug|x64
 		{3F3D20EF-64E2-42C1-B825-F5C21A1F5112}.Debug|x64.Build.0 = Debug|x64
