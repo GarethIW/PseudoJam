@@ -7,6 +7,10 @@ A 48-hour game jam, loosely adhering to Ludum Jam rules, and using the last Ludu
 
 This is our first attempt at a jam.
 
+The jam will run from approximately 17:00 GMT 29/12/2012 until 17:00 GMT 31/12/2012
+
+There will be a livestream as far as is possible at http://twitch.tv/garethiw - please join in with the chat for moral support!
+
 Code Shizzle
 ------------
 
