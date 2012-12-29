@@ -113,7 +113,7 @@ namespace YouAreTheVillain
 
                 foreach (MapObject o in objectlayer.Objects)
                 {
-                    if (o.Location.Contains(new Point((int)Position.X, (int)(Position.Y + (frameSize.Y / 2)))))
+                    if (o.Location.Contains(new Point((int)Position.X, (int)(Position.Y + (frameSize.Y)))))
                     {
                         if(randomNumber.Next(10)==1 || (o.Properties["MustJump"].ToLower()=="true"))
                         {
@@ -121,7 +121,7 @@ namespace YouAreTheVillain
                                 Velocity.Y=-13f;
 
                             if (o.Type == "Half")
-                                Velocity.Y = -7.5f;
+                                Velocity.Y = -9f;
                          }
                     }
                 }

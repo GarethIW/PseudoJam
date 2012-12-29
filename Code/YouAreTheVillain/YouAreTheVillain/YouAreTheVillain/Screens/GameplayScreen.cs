@@ -62,7 +62,7 @@ namespace YouAreTheVillain
 
             //gameFont = content.Load<SpriteFont>("gamefont");
 
-            gameMap = content.Load<Map>("map");
+            gameMap = content.Load<Map>("rockmap");
             gameCamera = new Camera(ScreenManager.GraphicsDevice.Viewport, gameMap);
 
             GameManager.Map = gameMap;
@@ -71,6 +71,8 @@ namespace YouAreTheVillain
             gameHero = new Hero();
             gameHero.LoadContent(content);
             gameHero.Initialize();
+
+            gameCamera.Target = gameHero.Position;
 
             GameManager.Hero = gameHero;
 
