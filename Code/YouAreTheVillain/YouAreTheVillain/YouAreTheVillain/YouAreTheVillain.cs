@@ -24,11 +24,26 @@ namespace YouAreTheVillain
         Map testmap;
         Camera gameCamera;
 
+        ScreenManager screenManager;
+
         public YouAreTheVillain()
         {
             graphics = new GraphicsDeviceManager(this);
+#if WINDOWS_PHONE || WINRT
             graphics.IsFullScreen = true;
+#endif
+#if WINDOWS
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+#endif
             Content.RootDirectory = "YouAreTheVillainContent";
+
+#if WINDOWS_PHONE
+            screenManager = new ScreenManager(this, true);
+#else
+            screenManager = new ScreenManager(this, false);
+#endif
+            Components.Add(screenManager);
         }
 
         /// <summary>
@@ -54,8 +69,8 @@ namespace YouAreTheVillain
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            testmap = Content.Load<Map>("map");
-            gameCamera = new Camera(GraphicsDevice.Viewport, testmap);
+            screenManager.AddScreen(new BackgroundScreen(), null);
+            screenManager.AddScreen(new MainMenuScreen(), null);
         }
 
         /// <summary>
@@ -92,9 +107,9 @@ namespace YouAreTheVillain
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            testmap.DrawLayer(spriteBatch, "FG", gameCamera);
-            spriteBatch.End();
+            //spriteBatch.Begin();
+            //testmap.DrawLayer(spriteBatch, "FG", gameCamera);
+            //spriteBatch.End();
 
             base.Draw(gameTime);
         }
