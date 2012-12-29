@@ -43,6 +43,22 @@
       <Link>YouAreTheVillainContent\map.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\blank.xnb">
+      <Link>YouAreTheVillainContent\blank.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\gamefont.xnb">
+      <Link>YouAreTheVillainContent\gamefont.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\menufont.xnb">
+      <Link>YouAreTheVillainContent\menufont.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\logo.xnb">
+      <Link>YouAreTheVillainContent\logo.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +75,48 @@
   <ItemGroup>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Program.cs">
       <Link>Program.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\ScreenManager\GameScreen.cs">
+      <Link>ScreenManager\GameScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\ScreenManager\InputState.cs">
+      <Link>ScreenManager\InputState.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\ScreenManager\ScreenManager.cs">
+      <Link>ScreenManager\ScreenManager.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\BackgroundScreen.cs">
+      <Link>Screens\BackgroundScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\GameplayScreen.cs">
+      <Link>Screens\GameplayScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\LoadingScreen.cs">
+      <Link>Screens\LoadingScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\MainMenuScreen.cs">
+      <Link>Screens\MainMenuScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\MenuEntry.cs">
+      <Link>Screens\MenuEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\MenuScreen.cs">
+      <Link>Screens\MenuScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\MessageBoxScreen.cs">
+      <Link>Screens\MessageBoxScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\OptionsMenuScreen.cs">
+      <Link>Screens\OptionsMenuScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\PauseBackgroundScreen.cs">
+      <Link>Screens\PauseBackgroundScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\PauseMenuScreen.cs">
+      <Link>Screens\PauseMenuScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\PlayerIndexEventArgs.cs">
+      <Link>Screens\PlayerIndexEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\YouAreTheVillain.cs">
       <Link>YouAreTheVillain.cs</Link>

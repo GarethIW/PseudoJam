@@ -16,7 +16,7 @@ namespace TiledLib
         public Vector2 Target;
         public Rectangle ClampRect;
 
-        float Speed = 0.1f;
+        float Speed = 0.5f;
 
         /// <summary>
         /// Initialise the camera, using the game map to define the boundaries
