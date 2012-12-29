@@ -94,7 +94,7 @@ namespace YouAreTheVillain
 
             if (IsActive)
             {
-                
+                gameCamera.Update(ScreenManager.GraphicsDevice.Viewport);
             }
         }
 
@@ -125,7 +125,16 @@ namespace YouAreTheVillain
         
             if(IsActive)
             {
-               
+                if (input.MouseDragging)
+                {
+                    gameCamera.Target -= input.MouseDelta;
+                    //gameCamera.cl
+                }
+
+                if (input.DragGesture.HasValue)
+                {
+                    gameCamera.Target -= input.DragGesture.Value.Delta;
+                }
             }
         }
 
