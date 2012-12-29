@@ -33,6 +33,7 @@ namespace YouAreTheVillain
 
         Map gameMap;
         Camera gameCamera;
+        Hero gameHero;
 
         #endregion
 
@@ -63,6 +64,15 @@ namespace YouAreTheVillain
 
             gameMap = content.Load<Map>("map");
             gameCamera = new Camera(ScreenManager.GraphicsDevice.Viewport, gameMap);
+
+            GameManager.Map = gameMap;
+            GameManager.Camera = gameCamera;
+
+            gameHero = new Hero();
+            gameHero.LoadContent(content);
+            gameHero.Initialize();
+
+            GameManager.Hero = gameHero;
 
             ScreenManager.Game.ResetElapsedTime();
         }
@@ -95,6 +105,7 @@ namespace YouAreTheVillain
             if (IsActive)
             {
                 gameCamera.Update(ScreenManager.GraphicsDevice.Viewport);
+                gameHero.Update(gameTime);
             }
         }
 
@@ -154,6 +165,8 @@ namespace YouAreTheVillain
             spriteBatch.Begin();
 
             gameMap.DrawLayer(spriteBatch, "FG", gameCamera);
+
+            gameHero.Draw(spriteBatch);
 
             spriteBatch.End();
 

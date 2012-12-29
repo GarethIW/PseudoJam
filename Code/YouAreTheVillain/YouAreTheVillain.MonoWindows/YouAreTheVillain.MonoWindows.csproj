@@ -59,6 +59,10 @@
       <Link>YouAreTheVillainContent\logo.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\hero.xnb">
+      <Link>YouAreTheVillainContent\hero.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +77,12 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\GameManager.cs">
+      <Link>GameManager.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Hero.cs">
+      <Link>Hero.cs</Link>
+    </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Program.cs">
       <Link>Program.cs</Link>
     </Compile>
