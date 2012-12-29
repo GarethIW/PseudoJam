@@ -16,8 +16,10 @@ namespace YouAreTheVillain
 {
     public class Hero
     {
+        static Random randomNumber = new Random();
+
         public Vector2 Position;
-        public Vector2 Velocity = new Vector2(3,0);
+        public Vector2 Velocity = new Vector2(0,0);
 
         Vector2 SpawnPoint;
         Vector2 Gravity = new Vector2(0, 0.5f);
@@ -52,8 +54,12 @@ namespace YouAreTheVillain
         public void Update(GameTime gameTime)
         {
             Velocity += Gravity;
+            if (Velocity.X < 4) Velocity.X += 0.5f;
 
             CollisionCheck();
+            JumpsCheck();
+
+            Vector2.Clamp(Velocity, new Vector2(-15, -15), new Vector2(15, 15));
             Position += Velocity;
 
             if (Position.Y > GameManager.Map.Height*GameManager.Map.TileHeight)
@@ -79,7 +85,7 @@ namespace YouAreTheVillain
             {
                 for (int x = -1; x <= 1; x++)
                 {
-                    Point tilePos = new Point((int)((Position.X + (x * (frameSize.X / 2))) / GameManager.Map.TileWidth), (int)((Position.Y + (y * (frameSize.Y / 2))) / GameManager.Map.TileHeight));
+                    Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2)-10))) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)-10))) / GameManager.Map.TileHeight));
 
                     if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
                     if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
@@ -88,14 +94,38 @@ namespace YouAreTheVillain
                     {
                         collided = true;
                         if (x > 0 && y==0 && Velocity.X > 0) Velocity.X = 0;
-                        if (x < 0 && y== 0 && Velocity.X < 0) Velocity.X = 0;
-                        if (y > 0 && Velocity.Y > 0) Velocity.Y = 0;
-                        if (y < 0 && Velocity.Y < 0) Velocity.Y = 0;
+                        if (x < 0 && y==0 && Velocity.X < 0) Velocity.X = 0;
+                        if (y > 0 && x==0 && Velocity.Y > 0) Velocity.Y = 0;
+                        if (y < 0 && x==0 && Velocity.Y < 0) Velocity.Y = 0;
                     }
                 }
             }
 
             return collided;
+        }
+
+        void JumpsCheck()
+        {
+            var layer = GameManager.Map.Layers.Where(l => l.Name == "Jumps").First();
+            if (layer != null)
+            {
+                MapObjectLayer objectlayer = layer as MapObjectLayer;
+
+                foreach (MapObject o in objectlayer.Objects)
+                {
+                    if (o.Location.Contains(new Point((int)Position.X, (int)(Position.Y + (frameSize.Y / 2)))))
+                    {
+                        if(randomNumber.Next(10)==1 || (o.Properties["MustJump"].ToLower()=="true"))
+                        {
+                            if(o.Type=="Full")
+                                Velocity.Y=-13f;
+
+                            if (o.Type == "Half")
+                                Velocity.Y = -7.5f;
+                         }
+                    }
+                }
+            }
         }
     }
 }
