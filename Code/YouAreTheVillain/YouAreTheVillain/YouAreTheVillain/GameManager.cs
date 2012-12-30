@@ -11,5 +11,7 @@ namespace YouAreTheVillain
         public static Hero Hero;
         public static Map Map;
         public static Camera Camera;
+
+        public static MinionManager MinionManager;
     }
 }

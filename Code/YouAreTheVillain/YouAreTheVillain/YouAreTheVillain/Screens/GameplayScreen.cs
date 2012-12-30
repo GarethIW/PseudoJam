@@ -10,6 +10,7 @@
 #region Using Statements
 using System;
 using System.Threading;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,6 +35,7 @@ namespace YouAreTheVillain
         Map gameMap;
         Camera gameCamera;
         Hero gameHero;
+        MinionManager gameMinionManager;
 
         #endregion
 
@@ -49,6 +51,8 @@ namespace YouAreTheVillain
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
             IsStubbourn = true;
+
+            EnabledGestures = Microsoft.Xna.Framework.Input.Touch.GestureType.FreeDrag | Microsoft.Xna.Framework.Input.Touch.GestureType.Tap;
         }
 
 
@@ -60,13 +64,17 @@ namespace YouAreTheVillain
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "YouAreTheVillainContent");
 
-            //gameFont = content.Load<SpriteFont>("gamefont");
+            gameFont = content.Load<SpriteFont>("menufont");
 
             gameMap = content.Load<Map>("rockmap");
             gameCamera = new Camera(ScreenManager.GraphicsDevice.Viewport, gameMap);
 
+            gameMinionManager = new MinionManager();
+            gameMinionManager.LoadContent(content);
+
             GameManager.Map = gameMap;
             GameManager.Camera = gameCamera;
+            GameManager.MinionManager = gameMinionManager;
 
             gameHero = new Hero();
             gameHero.LoadContent(content);
@@ -108,6 +116,7 @@ namespace YouAreTheVillain
             {
                 gameCamera.Update(ScreenManager.GraphicsDevice.Viewport);
                 gameHero.Update(gameTime);
+                gameMinionManager.Update(gameTime);
             }
         }
 
@@ -148,6 +157,45 @@ namespace YouAreTheVillain
                 {
                     gameCamera.Target -= input.DragGesture.Value.Delta;
                 }
+
+                if (input.TapPosition.HasValue)
+                {
+                    Vector2 tapPos = input.TapPosition.Value;
+
+                    tapPos += gameCamera.Position;
+
+                    Point tilePos = new Point((int)tapPos.X / 64, (int)tapPos.Y / 64);
+
+                    var t = gameMap.Layers.Where(l => l.Name == "FG").First();
+                    TileLayer tileLayer = t as TileLayer;
+
+                    bool found = false;
+
+                    int type = MinionManager.randomNumber.Next(2);
+
+                    while (!found)
+                    {
+                        if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                            tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) || tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
+                        {
+                            if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
+                            {
+                                if (tilePos.Y - 1 >= tileLayer.Tiles.GetLowerBound(1))
+                                {
+                                    if (tileLayer.Tiles[tilePos.X, tilePos.Y - 1] == null)
+                                    {
+                                        gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, (tilePos.Y * 64) - 32), type);
+                                        found = true;
+                                    }
+                                    else tilePos.Y -= 1;
+                                }
+                                else found = true;
+                            }
+                            else found = true;
+                        }
+                        else found = true;
+                    }
+                }
             }
         }
 
@@ -169,6 +217,16 @@ namespace YouAreTheVillain
             gameMap.DrawLayer(spriteBatch, "FG", gameCamera);
 
             gameHero.Draw(spriteBatch);
+            gameMinionManager.Draw(spriteBatch);
+
+            if (gameHero.SpawnTime > 0)
+            {
+                spriteBatch.DrawString(gameFont, "Hero spawning in " + (int)(gameHero.SpawnTime / 1000), new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 100), Color.White, 0f, gameFont.MeasureString("Hero spawning in " + (int)(gameHero.SpawnTime / 1000)) / 2, 1f, SpriteEffects.None, 1);
+            }
+            if (gameHero.HP <= 0)
+            {
+                spriteBatch.DrawString(gameFont, "Congratulations\nYou defeated the Hero", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 100), Color.White, 0f, gameFont.MeasureString("Congratulations\nYou defeated the Hero") / 2, 1f, SpriteEffects.None, 1);
+            }
 
             spriteBatch.End();
 

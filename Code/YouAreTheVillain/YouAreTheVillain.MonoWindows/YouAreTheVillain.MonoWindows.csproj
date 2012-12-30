@@ -75,6 +75,14 @@
       <Link>YouAreTheVillainContent\RockMap.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\minion1.xnb">
+      <Link>YouAreTheVillainContent\minion1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\minion2.xnb">
+      <Link>YouAreTheVillainContent\minion2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +102,12 @@
     </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Hero.cs">
       <Link>Hero.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Minion.cs">
+      <Link>Minion.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\MinionManager.cs">
+      <Link>MinionManager.cs</Link>
     </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Program.cs">
       <Link>Program.cs</Link>

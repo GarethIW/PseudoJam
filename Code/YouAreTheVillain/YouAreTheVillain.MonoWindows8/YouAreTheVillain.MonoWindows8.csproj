@@ -135,8 +135,62 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\GameManager.cs">
+      <Link>GameManager.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Hero.cs">
+      <Link>Hero.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Minion.cs">
+      <Link>Minion.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\MinionManager.cs">
+      <Link>MinionManager.cs</Link>
+    </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Program.cs">
       <Link>Program.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screenmanager\GameScreen.cs">
+      <Link>ScreenManager\GameScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screenmanager\InputState.cs">
+      <Link>ScreenManager\InputState.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screenmanager\ScreenManager.cs">
+      <Link>ScreenManager\ScreenManager.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\BackgroundScreen.cs">
+      <Link>Screens\BackgroundScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\GameplayScreen.cs">
+      <Link>Screens\GameplayScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\LoadingScreen.cs">
+      <Link>Screens\LoadingScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\MainMenuScreen.cs">
+      <Link>Screens\MainMenuScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\MenuEntry.cs">
+      <Link>Screens\MenuEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\MenuScreen.cs">
+      <Link>Screens\MenuScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\MessageBoxScreen.cs">
+      <Link>Screens\MessageBoxScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\OptionsMenuScreen.cs">
+      <Link>Screens\OptionsMenuScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\PauseBackgroundScreen.cs">
+      <Link>Screens\PauseBackgroundScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\PauseMenuScreen.cs">
+      <Link>Screens\PauseMenuScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\youarethevillain\youarethevillain\screens\PlayerIndexEventArgs.cs">
+      <Link>Screens\PlayerIndexEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\YouAreTheVillain.cs">
       <Link>YouAreTheVillain.cs</Link>
@@ -147,18 +201,54 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\smalllogo.png" />
+    <Content Include="Assets\splashscreen.png" />
+    <Content Include="Assets\storelogo.png" />
     <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\basictiles.xnb">
       <Link>YouAreTheVillainContent\basictiles.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\blank.xnb">
+      <Link>YouAreTheVillainContent\blank.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\gamefont.xnb">
+      <Link>YouAreTheVillainContent\gamefont.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\hero.xnb">
+      <Link>YouAreTheVillainContent\hero.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\logo.xnb">
+      <Link>YouAreTheVillainContent\logo.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\map.xnb">
       <Link>YouAreTheVillainContent\map.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Logo.png" />
-    <Content Include="Assets\smalllogo.png" />
-    <Content Include="Assets\splashscreen.png" />
-    <Content Include="Assets\storelogo.png" />
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\menufont.xnb">
+      <Link>YouAreTheVillainContent\menufont.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\minion1.xnb">
+      <Link>YouAreTheVillainContent\minion1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\Rock-Tiles-Base.xnb">
+      <Link>YouAreTheVillainContent\Rock-Tiles-Base.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\Rock-Tiles-Extra.xnb">
+      <Link>YouAreTheVillainContent\Rock-Tiles-Extra.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\RockMap.xnb">
+      <Link>YouAreTheVillainContent\RockMap.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="YouAreTheVillain.MonoWindows8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
