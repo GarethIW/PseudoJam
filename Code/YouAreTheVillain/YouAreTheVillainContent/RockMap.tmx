@@ -8,74 +8,222 @@
  </tileset>
  <layer name="FG" width="100" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+1Yiw6CMAycIr5QUdH//1W3xMbm0g72QuK85ILgqG2v7UBj6sLOcm/ZZuaeMcVOrXC65NJim9F2zdiY9F5wPAi2dyasX2htzUA9fDPHl/sx+Pol1uYvgucJc8LrO0e+uL2cdpeAs2XPPl+AvXKfBJenmLysLNeWTcS9f0zHdeR70kHqq0cppxYCFzuvP94LIT0Q8nutkWsedZBm3FwgX4glciHB7bf4LJkLLiYeh9Oaz3acgbGzn/qNail1xqGfpfuT90QJPai2SulMIB0GuE77+lohgnScqwcIOA86I79rpdjm9kvpgTo838c7rNPefZYCzb+pedP2YdoTJJ6U9VLdajMGn7MGON7gnKDFq/XNlDmHvvP1V2FdI1zDuvX5KN2PeQixK8UfslbqN9TjDudH8+n9GPry6Ks5Xg80M/neE/tfRSfE08HxG0Q9nnBOx9i4tZkxZg/90pDDryVRiztUjxcticgecBcAAA==
+   H4sIAAAAAAAAC+VYCQ6DMAzr7oPdx/+/ulaatchKyujB0GrJ6oASkjpJYc61hY3n1nNVmFvBHDutIuhSSot1QdstY+nyayFwp9jeuGH1grktg/WI9ZzY2vchVi+pNv8RMod5TWLXcp9V0u4UcPQ8i98n4tm4ryRmnnPPxQjPahmXnuvQAf1G5vijllMTQYhd5p+shRo1EJ63cnrOsw6sxZiAL+AY/SAg7Lf8LlkKISYZR9Ba9nbugam9H/WGXMrtcexn7fqUNVFDD+RWLZ0B6HCn89jX5wYZ0HGsGgC4H3RO/9bKsS3t19KDdXi+xxvNs759pgLLv2/XzdqHsSdoPBjztby1egy/Z91pvNIxYMVr1c03fY59l/MvyryFco7zNuajdj+vwxC7WvxD5mr1xnrc6HjvPrWfwtg6xnJO5gN6ptx7Uv+r6JR4Ohp/QdbjSccYU+O2ekafPfbLQgm/pkQr7qF6vADS3uKPcBcAAA==
   </data>
  </layer>
  <objectgroup name="Spawn" width="100" height="15">
-  <object x="48" y="694" width="52" height="72"/>
+  <object x="1924" y="694" width="52" height="72"/>
+  <object x="0" y="693" width="52" height="72"/>
+  <object x="3651" y="566" width="52" height="72"/>
+  <object x="5121" y="629" width="52" height="72"/>
  </objectgroup>
  <objectgroup name="Jumps" width="100" height="15">
-  <object type="Full" x="162" y="765" width="15" height="52">
+  <object type="Full" x="169" y="760" width="24" height="51">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Full" x="402" y="636" width="15" height="51">
+  <object type="Full" x="402" y="636" width="35" height="48">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Half" x="623" y="827" width="11" height="55">
+  <object type="Half" x="622" y="824" width="24" height="54">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="915" y="828" width="46" height="62">
+  <object type="Half" x="915" y="828" width="46" height="62">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="834" y="514" width="13" height="48">
+  <object type="Full" x="824" y="507" width="39" height="48">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Half" x="971" y="574" width="46" height="20">
+  <object type="Half" x="971" y="574" width="44" height="53">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Full" x="1228" y="765" width="46" height="20">
+  <object type="Full" x="1227" y="762" width="48" height="56">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="1417" y="767" width="46" height="20">
+  <object type="Full" x="1417" y="765" width="46" height="64">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="1285" y="831" width="46" height="20">
+  <object type="Half" x="1286" y="825" width="47" height="77">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="1740" y="761" width="46" height="20">
+  <object type="Full" x="1740" y="761" width="45" height="66">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="2130" y="761" width="46" height="20">
+  <object type="Full" x="2130" y="761" width="46" height="70">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="2255" y="634" width="46" height="20">
+  <object type="Half" x="2256" y="632" width="51" height="65">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="2383" y="568" width="46" height="20">
+  <object type="Full" x="2383" y="568" width="43" height="63">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Full" x="2571" y="445" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Full" x="2758" y="443" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Half" x="2889" y="831" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Full" x="2760" y="764" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Half" x="3088" y="756" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="3209" y="699" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Half" x="3275" y="825" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="2956" y="314" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Half" x="3402" y="314" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Half" x="3534" y="762" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="3597" y="698" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="3792" y="635" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="3921" y="570" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Full" x="4059" y="503" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Half" x="4306" y="761" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="4239" y="505" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="4300" y="444" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="4685" y="506" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="4815" y="442" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="4942" y="380" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="5145" y="313" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Half" x="5070" y="762" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="5288" y="692" width="40" height="55">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="5403" y="631" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="5527" y="567" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="5656" y="505" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Full" x="3144" y="826" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="5321" y="378" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Half" x="523" y="561" width="46" height="62">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
