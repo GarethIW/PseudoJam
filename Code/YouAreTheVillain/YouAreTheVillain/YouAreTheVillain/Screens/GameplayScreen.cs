@@ -51,6 +51,8 @@ namespace YouAreTheVillain
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
             IsStubbourn = true;
+
+            EnabledGestures = Microsoft.Xna.Framework.Input.Touch.GestureType.FreeDrag | Microsoft.Xna.Framework.Input.Touch.GestureType.Tap;
         }
 
 
