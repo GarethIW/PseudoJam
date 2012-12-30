@@ -94,6 +94,7 @@ namespace YouAreTheVillain
             GameManager.Hero = gameHero;
 
             gameButtonManager = new ButtonManager();
+            gameButtonManager.LoadContent(content);
             GameManager.ButtonManager = gameButtonManager;
 
             ScreenManager.Game.ResetElapsedTime();

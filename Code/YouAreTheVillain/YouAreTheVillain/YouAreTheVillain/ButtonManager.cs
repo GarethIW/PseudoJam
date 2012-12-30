@@ -23,7 +23,7 @@ namespace YouAreTheVillain
 
         public void Update(GameTime gameTime)
         {
-            if (CoolDown > 0) CoolDown -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (CurrentCoolDown > 0) CurrentCoolDown -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
     }
 
@@ -34,6 +34,10 @@ namespace YouAreTheVillain
         public Vector2 Position;
 
         Vector2 buttonSize = new Vector2(96, 96);
+
+        Texture2D buttonBG;
+
+        public int SelectedButton = 0;
 
         public ButtonManager()
         {
@@ -52,7 +56,7 @@ namespace YouAreTheVillain
 
         public void LoadContent(ContentManager content)
         {
-           
+            buttonBG = content.Load<Texture2D>("buttons");
         }
 
         public void Update(GameTime gameTime)
@@ -65,6 +69,21 @@ namespace YouAreTheVillain
         {
             bool handled = false;
 
+            Vector2 testPos = Position;
+            foreach (Button b in Buttons)
+            {
+                Rectangle testRect = new Rectangle((int)testPos.X, (int)testPos.Y, (int)buttonSize.X, (int)buttonSize.Y);
+
+                if (testRect.Contains(new Point((int)tapPos.X, (int)tapPos.Y)))
+                {
+                    SelectedButton = Buttons.IndexOf(b);
+
+                    handled = true;
+                }
+
+                testPos += new Vector2(buttonSize.X, 0);
+            }
+
             return handled;
         }
 
@@ -73,6 +92,24 @@ namespace YouAreTheVillain
             Vector2 drawPos = Position;
             foreach (Button b in Buttons)
             {
+                if (Buttons.IndexOf(b) == SelectedButton)
+                {
+                    spriteBatch.Draw(buttonBG, drawPos, new Rectangle((int)buttonSize.X, 0, (int)buttonSize.X, (int)buttonSize.Y), b.CurrentCoolDown > 0 ? new Color(50,50,50) : Color.White);
+                    if (b.CurrentCoolDown > 0)
+                    {
+                        float cdAmount = buttonSize.Y - ((buttonSize.Y / (float)b.CoolDown) * (float)b.CurrentCoolDown);
+                        spriteBatch.Draw(buttonBG, drawPos + new Vector2(0, buttonSize.Y - cdAmount), new Rectangle((int)buttonSize.X, (int)(buttonSize.Y - cdAmount), (int)buttonSize.X, (int)buttonSize.Y), new Color(150, 150, 150));
+                    }
+                }
+                else
+                {
+                    spriteBatch.Draw(buttonBG, drawPos, new Rectangle(0, 0, (int)buttonSize.X, (int)buttonSize.Y), b.CurrentCoolDown > 0 ? new Color(50, 50, 50) : Color.White);
+                    if (b.CurrentCoolDown > 0)
+                    {
+                        float cdAmount = buttonSize.Y - ((buttonSize.Y / (float)b.CoolDown) * (float)b.CurrentCoolDown);
+                        spriteBatch.Draw(buttonBG, drawPos + new Vector2(0, buttonSize.Y - (int)cdAmount), new Rectangle(0, (int)(buttonSize.Y - cdAmount), (int)buttonSize.X, (int)buttonSize.Y), new Color(150, 150, 150));
+                    }
+                }
                 spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[b.MinionType], drawPos + (buttonSize / 2), new Rectangle(0, 0, 64, 64), Color.White, 0f, new Vector2(32,32), 1f, SpriteEffects.None, 1);
                 drawPos += new Vector2(buttonSize.X, 0);
             }
