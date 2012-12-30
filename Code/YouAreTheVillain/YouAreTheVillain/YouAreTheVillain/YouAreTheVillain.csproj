@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonManager.cs" />
+    <Compile Include="ProjectileManager.cs" />
     <Compile Include="Minion.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Hero.cs" />

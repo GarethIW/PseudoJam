@@ -40,6 +40,10 @@ namespace YouAreTheVillain
         Vector2 frameSize = new Vector2(64, 64);
         Texture2D spriteSheet;
 
+        public int numSwords = 3;
+        double swordRefreshTime;
+        double swordAttackTime;
+
 
         public Hero()
         { }
@@ -127,6 +131,15 @@ namespace YouAreTheVillain
                 if (animFrame > numFrames) animFrame = 1;
             }
 
+            if (swordAttackTime > 0) swordAttackTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (swordRefreshTime > 0) swordRefreshTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (swordRefreshTime <= 0)
+            {
+                if (numSwords < 3) numSwords++;
+                swordRefreshTime = 7000;
+            }
+
             JumpsCheck();
             Combat();
 
@@ -144,7 +157,7 @@ namespace YouAreTheVillain
         {
             if (HP <= 0)
             {
-                spriteBatch.Draw(spriteSheet, (Position + new Vector2(0,5)) - GameManager.Camera.Position, new Rectangle(4 * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.Draw(spriteSheet, (Position + new Vector2(0,5)) - GameManager.Camera.Position, new Rectangle(10 * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 return;
             }
 
@@ -153,7 +166,7 @@ namespace YouAreTheVillain
                 spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(animFrame * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White * spawnAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 if (painAlpha > 0f)
                 {
-                    spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(animFrame * (int)frameSize.X, 64, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                    spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(animFrame * (int)frameSize.X, 65, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 }
             }
             else
@@ -161,13 +174,15 @@ namespace YouAreTheVillain
                 spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(0 * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White * spawnAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 if (painAlpha > 0f)
                 {
-                    spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(0 * (int)frameSize.X, 64, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                    spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(0 * (int)frameSize.X, 65, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 }
             }
         }
 
         void Combat()
         {
+            
+
             var t = GameManager.Map.Layers.Where(l => l.Name == "FG").First();
             TileLayer tileLayer = t as TileLayer;
 
@@ -215,6 +230,35 @@ namespace YouAreTheVillain
 
                     if (!found) Velocity.Y = -10f;
                     
+                }
+
+                // Check projectile distance
+                if ((m.Position.X - Position.X) > 0 && (m.Position.X - Position.X) < 800 &&
+                   (m.Position.Y - Position.Y) > -10 && (m.Position.Y - Position.Y)<10)
+                {
+                    // Check that there is no pit or obstacle in front
+                    bool found = false;
+
+                    for (int x = (int)Position.X; x < m.Position.X; x += 64)
+                    {
+                        Point tileP = new Point((int)((x) / GameManager.Map.TileWidth), (int)((Position.Y) / GameManager.Map.TileHeight));
+                        if (tileP.X >= tileLayer.Tiles.GetLowerBound(0) && tileP.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                            tileP.Y >= tileLayer.Tiles.GetLowerBound(1) && tileP.Y <= tileLayer.Tiles.GetUpperBound(1))
+                            if (tileLayer.Tiles[tileP.X, tileP.Y] != null)
+                                found = true;
+                    }
+
+                    if (!found)
+                    {
+                        if (numSwords > 0 && swordAttackTime<=0 && m.spawnAlpha>=1f)
+                        {
+                            swordAttackTime = 1000;
+                            swordRefreshTime += 3000;
+                            numSwords--;
+                            GameManager.ProjectileManager.Add(Position + new Vector2(25, 0), new Vector2(10, 0), true, 0);
+                        }
+                    }
+
                 }
             }
 
