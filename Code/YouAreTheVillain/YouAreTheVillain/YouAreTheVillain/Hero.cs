@@ -27,6 +27,12 @@ namespace YouAreTheVillain
         public double SpawnTime;
         float spawnAlpha = 0f;
 
+        double animTime = 100;
+        double currentFrameTime = 0;
+        int animFrame = 1;
+        int numFrames = 3;
+        bool onGround = true;
+
         Vector2 SpawnPoint;
         Vector2 Gravity = new Vector2(0, 0.5f);
 
@@ -111,7 +117,15 @@ namespace YouAreTheVillain
                 return;
             }
 
-            
+            // Anim
+            currentFrameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (currentFrameTime >= animTime)
+            {
+                currentFrameTime = 0;
+                animFrame++;
+                if (animFrame > numFrames) animFrame = 1;
+            }
+
             JumpsCheck();
             Combat();
 
@@ -129,14 +143,25 @@ namespace YouAreTheVillain
         {
             if (HP <= 0)
             {
-                spriteBatch.Draw(spriteSheet, (Position+new Vector2(0,16)) - GameManager.Camera.Position, new Rectangle(0, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, -MathHelper.PiOver2, frameSize / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.Draw(spriteSheet, (Position + new Vector2(0,5)) - GameManager.Camera.Position, new Rectangle(4 * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 return;
             }
 
-            spriteBatch.Draw(spriteSheet, Position - GameManager.Camera.Position, new Rectangle(0,0,(int)frameSize.X,(int)frameSize.Y), Color.White * spawnAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
-            if (painAlpha > 0f)
+            if (onGround)
             {
-                spriteBatch.Draw(spriteSheet, Position - GameManager.Camera.Position, new Rectangle(0, 64, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(animFrame * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White * spawnAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                if (painAlpha > 0f)
+                {
+                    spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(animFrame * (int)frameSize.X, 64, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                }
+            }
+            else
+            {
+                spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(0 * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White * spawnAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                if (painAlpha > 0f)
+                {
+                    spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(0 * (int)frameSize.X, 64, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                }
             }
         }
 
@@ -212,16 +237,29 @@ namespace YouAreTheVillain
                 if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                 {
                     collidedy = true;
+                    
                     if (Velocity.Y > 0)
                     {
                         Velocity.Y = 0;
-                        
+
                     }
                     Position.Y -= 1f;
                 }
+               
+            }
 
-                
-
+            for (x = -1; x <= 1; x++)
+            {
+                Point tileP = new Point((int)((Position.X + (x * ((frameSize.X / 2)))) / GameManager.Map.TileWidth), (int)((Position.Y + (((frameSize.Y / 2) + 5))) / GameManager.Map.TileHeight));
+                if (tileP.X >= tileLayer.Tiles.GetLowerBound(0) && tileP.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                    tileP.Y >= tileLayer.Tiles.GetLowerBound(1) && tileP.Y <= tileLayer.Tiles.GetUpperBound(1))
+                {
+                    if (tileLayer.Tiles[tileP.X, tileP.Y] == null)
+                    {
+                        onGround = false;
+                    }
+                    else onGround = true;
+                }
             }
 
             if (!collidedx)
