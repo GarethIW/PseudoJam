@@ -53,14 +53,14 @@ namespace YouAreTheVillain
 
         public void Update(GameTime gameTime)
         {
-            Velocity += Gravity;
-            if (Velocity.X < 4) Velocity.X += 0.5f;
+            
+            
 
             CollisionCheck();
             JumpsCheck();
 
             Vector2.Clamp(Velocity, new Vector2(-15, -15), new Vector2(15, 15));
-            Position += Velocity;
+           
 
             if (Position.Y > GameManager.Map.Height*GameManager.Map.TileHeight)
             {
@@ -76,32 +76,84 @@ namespace YouAreTheVillain
 
         bool CollisionCheck()
         {
-            bool collided = false;
+            bool collidedx = false;
+            bool collidedy = false;
 
             var t = GameManager.Map.Layers.Where(l => l.Name == "FG").First();
             TileLayer tileLayer = t as TileLayer;
 
-            for (int y = -1; y <= 1; y++)
+            int x, y;
+
+            // Check left
+            x=-1;
+            for (y = 0; y <= 1; y++)
             {
-                for (int x = -1; x <= 1; x++)
+                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2)))) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)))) / GameManager.Map.TileHeight));
+
+                if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
+                if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
+
+                if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                 {
-                    Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2)-10))) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)-10))) / GameManager.Map.TileHeight));
-
-                    if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
-                    if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
-
-                    if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
-                    {
-                        collided = true;
-                        if (x > 0 && y==0 && Velocity.X > 0) Velocity.X = 0;
-                        if (x < 0 && y==0 && Velocity.X < 0) Velocity.X = 0;
-                        if (y > 0 && x==0 && Velocity.Y > 0) Velocity.Y = 0;
-                        if (y < 0 && x==0 && Velocity.Y < 0) Velocity.Y = 0;
-                    }
+                    collidedx = true;
+                    //Velocity.X = 0;
                 }
+                
             }
 
-            return collided;
+            // Check right
+            x = 1;
+            for (y = 0; y <= 1; y++)
+            {
+                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2)))) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)))) / GameManager.Map.TileHeight));
+
+                if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
+                if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
+
+                if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
+                {
+                    collidedx = true;
+                    //Velocity.X = 0;
+                }
+
+            }
+
+            // Check down
+            y = 1;
+            for (x = -1; x <= 1; x++)
+            {
+                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2))) + (x*-10)) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)+2))) / GameManager.Map.TileHeight));
+
+                if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
+                if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
+
+                if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
+                {
+                    collidedy = true;
+                    if (Velocity.Y > 0)
+                    {
+                        Velocity.Y = 0;
+                        
+                    }
+                    Position.Y -= 1f;
+                }
+
+                
+
+            }
+
+            if (!collidedx)
+            {
+                Position.X += Velocity.X;
+                if (Velocity.X < 4) Velocity.X += 0.5f;
+            }
+            if (!collidedy)
+            {
+                Velocity += Gravity;
+                Position.Y += Velocity.Y;
+            }
+
+            return collidedx || collidedy;
         }
 
         void JumpsCheck()

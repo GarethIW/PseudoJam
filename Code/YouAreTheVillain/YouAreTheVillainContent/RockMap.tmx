@@ -30,52 +30,52 @@
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="915" y="828" width="46" height="62">
+  <object type="Half" x="915" y="828" width="46" height="62">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="834" y="514" width="13" height="48">
+  <object type="Full" x="824" y="507" width="39" height="48">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Half" x="971" y="574" width="46" height="20">
+  <object type="Half" x="971" y="574" width="44" height="53">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Full" x="1228" y="765" width="46" height="20">
+  <object type="Full" x="1227" y="762" width="48" height="56">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="1417" y="767" width="46" height="20">
+  <object type="Full" x="1417" y="776" width="46" height="64">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="1285" y="831" width="46" height="20">
+  <object type="Half" x="1286" y="825" width="47" height="77">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="1740" y="761" width="46" height="20">
+  <object type="Full" x="1740" y="761" width="45" height="66">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="2130" y="761" width="46" height="20">
+  <object type="Full" x="2130" y="761" width="46" height="70">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="2255" y="634" width="46" height="20">
+  <object type="Half" x="2256" y="632" width="51" height="65">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="2383" y="568" width="46" height="20">
+  <object type="Full" x="2383" y="568" width="43" height="63">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
