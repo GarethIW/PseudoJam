@@ -153,6 +153,9 @@
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Program.cs">
       <Link>Program.cs</Link>
     </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\ProjectileManager.cs">
+      <Link>ProjectileManager.cs</Link>
+    </Compile>
     <Compile Include="..\youarethevillain\youarethevillain\screenmanager\GameScreen.cs">
       <Link>ScreenManager\GameScreen.cs</Link>
     </Compile>
@@ -208,6 +211,10 @@
     <Content Include="Assets\smalllogo.png" />
     <Content Include="Assets\splashscreen.png" />
     <Content Include="Assets\storelogo.png" />
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\Arrows.xnb">
+      <Link>YouAreTheVillainContent\Arrows.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\basictiles.xnb">
       <Link>YouAreTheVillainContent\basictiles.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -216,8 +223,16 @@
       <Link>YouAreTheVillainContent\blank.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\Buttons.xnb">
+      <Link>YouAreTheVillainContent\Buttons.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\gamefont.xnb">
       <Link>YouAreTheVillainContent\gamefont.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\hearts.xnb">
+      <Link>YouAreTheVillainContent\hearts.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\hero.xnb">
@@ -242,6 +257,18 @@
     </Content>
     <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\minion2.xnb">
       <Link>YouAreTheVillainContent\minion2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\minion3.xnb">
+      <Link>YouAreTheVillainContent\minion3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\minion4.xnb">
+      <Link>YouAreTheVillainContent\minion4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\projectiles.xnb">
+      <Link>YouAreTheVillainContent\projectiles.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\Rock-Tiles-Base.xnb">
