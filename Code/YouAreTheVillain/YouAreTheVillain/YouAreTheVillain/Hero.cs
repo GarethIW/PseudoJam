@@ -95,7 +95,7 @@ namespace YouAreTheVillain
 
                 if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                 {
-                    collidedx = true;
+                    if (Velocity.X < 0) collidedx = true;
                     //Velocity.X = 0;
                 }
                 
@@ -112,7 +112,7 @@ namespace YouAreTheVillain
 
                 if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                 {
-                    collidedx = true;
+                    if (Velocity.X > 0) collidedx = true;
                     //Velocity.X = 0;
                 }
 
