@@ -18,6 +18,7 @@ namespace YouAreTheVillain
     {
         public bool Active = false;
         public bool Squished = true;
+        public bool Impaled = false;
 
         float squishAmount = 1f;
 
@@ -34,6 +35,11 @@ namespace YouAreTheVillain
 
         Vector2 frameSize = new Vector2(64, 64);
 
+        double animTime = 50;
+        double currentFrameTime = 0;
+        int animFrame = 0;
+        int numFrames = 3;
+
         public Minion()
         { }
 
@@ -47,6 +53,7 @@ namespace YouAreTheVillain
             Type = type;
             squishAmount = 1f;
             Squished = false;
+            Impaled = false;
         }
 
         
@@ -69,10 +76,54 @@ namespace YouAreTheVillain
                 return;
             }
 
+            if (Impaled)
+            {
+
+                spawnAlpha -= 0.005f;
+                if (spawnAlpha <= 0.1f) Active = false;
+
+                var t = GameManager.Map.Layers.Where(l => l.Name == "FG").First();
+                TileLayer tileLayer = t as TileLayer;
+
+                int x, y;
+
+                // Check right
+                x = 1;
+                
+                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2))) + (x * -32)) / GameManager.Map.TileWidth), (int)((Position.Y) / GameManager.Map.TileHeight));
+
+                if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) && tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                    tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) && tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
+                {
+                    if (tileLayer.Tiles[tilePos.X, tilePos.Y] == null)
+                    {
+                        Velocity.X = 10f;
+                        Position.X += Velocity.X;
+                    }
+                }
+                else
+                {
+                    Velocity.X = 10f;
+                    Position.X += Velocity.X;
+                }
+
+
+                return;
+            }
+
             if (spawnAlpha < 1f)
             {
                 spawnAlpha += 0.02f;
                 return;
+            }
+
+            // Anim
+            currentFrameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (currentFrameTime >= animTime)
+            {
+                currentFrameTime = 0;
+                animFrame++;
+                if (animFrame ==numFrames) animFrame = 0;
             }
 
             CollisionCheck();
@@ -94,7 +145,7 @@ namespace YouAreTheVillain
         {
             if (!Active) return;
 
-            spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[Type], (Position + new Vector2(0, 32*(1f-squishAmount))) - GameManager.Camera.Position, null, Color.White * spawnAlpha, 0f, frameSize / 2, new Vector2(1f, squishAmount), SpriteEffects.None, 1);
+            spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[Type], (Position + new Vector2(0, 32 * (1f - squishAmount))) - GameManager.Camera.Position, new Rectangle(animFrame * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White * spawnAlpha, 0f, frameSize / 2, new Vector2(1f, squishAmount), Direction.X < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 1);
         }
 
         bool CollisionCheck()
@@ -180,7 +231,7 @@ namespace YouAreTheVillain
 
             }
 
-            if (Type == 1)
+            if (Type == 1 || Type==2)
             {
                 Point tilePos = new Point((int)((Position.X + (Direction.X * ((frameSize.X / 2)))) / GameManager.Map.TileWidth), (int)((Position.Y + (((frameSize.Y / 2)+5))) / GameManager.Map.TileHeight));
                 if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) && tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
