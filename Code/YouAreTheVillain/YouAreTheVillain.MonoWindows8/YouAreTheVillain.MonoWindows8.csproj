@@ -237,6 +237,10 @@
       <Link>YouAreTheVillainContent\minion1.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\minion2.xnb">
+      <Link>YouAreTheVillainContent\minion2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\Rock-Tiles-Base.xnb">
       <Link>YouAreTheVillainContent\Rock-Tiles-Base.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
