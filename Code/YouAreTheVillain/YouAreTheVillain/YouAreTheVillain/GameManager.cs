@@ -13,5 +13,6 @@ namespace YouAreTheVillain
         public static Camera Camera;
 
         public static MinionManager MinionManager;
+        public static ButtonManager ButtonManager;
     }
 }
