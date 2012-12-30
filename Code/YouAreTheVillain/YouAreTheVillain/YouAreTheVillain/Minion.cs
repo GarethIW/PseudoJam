@@ -40,6 +40,8 @@ namespace YouAreTheVillain
         int animFrame = 0;
         int numFrames = 3;
 
+        double projectileTime = 0;
+
         public Minion()
         { }
 
@@ -115,6 +117,19 @@ namespace YouAreTheVillain
             {
                 spawnAlpha += 0.02f;
                 return;
+            }
+
+            if (Type == 2)
+            {
+                projectileTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (projectileTime > 500)
+                {
+                    if (MinionManager.randomNumber.Next(10) == 1)
+                    {
+                        projectileTime = 0;
+                        GameManager.ProjectileManager.Add(Position + (Direction * 20), Direction * 10, false, 1);
+                    }
+                }
             }
 
             // Anim
