@@ -110,6 +110,8 @@ namespace YouAreTheVillain
                         spriteBatch.Draw(buttonBG, drawPos + new Vector2(0, buttonSize.Y - (int)cdAmount), new Rectangle(0, (int)(buttonSize.Y - cdAmount), (int)buttonSize.X, (int)buttonSize.Y), new Color(150, 150, 150));
                     }
                 }
+                spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[b.MinionType], drawPos + (buttonSize / 2) + new Vector2(5,5), new Rectangle(0, 0, 64, 64), Color.Black*0.4f, 0f, new Vector2(32, 32), 1f, SpriteEffects.None, 1);
+
                 spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[b.MinionType], drawPos + (buttonSize / 2), new Rectangle(0, 0, 64, 64), Color.White, 0f, new Vector2(32,32), 1f, SpriteEffects.None, 1);
                 drawPos += new Vector2(buttonSize.X, 0);
             }
