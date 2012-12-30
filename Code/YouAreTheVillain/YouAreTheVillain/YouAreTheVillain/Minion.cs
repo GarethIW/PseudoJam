@@ -14,70 +14,69 @@ using TiledLib;
 
 namespace YouAreTheVillain
 {
-    public class Hero
+    public class Minion
     {
-        static Random randomNumber = new Random();
+        public bool Active = false;
 
         public Vector2 Position;
         public Vector2 Velocity = new Vector2(0,0);
+        public Vector2 Direction = new Vector2(0, 0);
+
+        float spawnAlpha = 0f;
 
         Vector2 SpawnPoint;
         Vector2 Gravity = new Vector2(0, 0.5f);
 
         Vector2 frameSize = new Vector2(64, 64);
-        Texture2D spriteSheet;
 
-        public Hero()
+        public Minion()
         { }
 
-        public void Initialize() 
+        public void Spawn(Vector2 loc) 
         {
-            // Try to find a spawn point
-            var layer = GameManager.Map.Layers.Where(l => l.Name == "Spawn").First();
-            if (layer!=null)
-            {
-                MapObjectLayer objectlayer = layer as MapObjectLayer;
-
-                foreach (MapObject o in objectlayer.Objects)
-                {
-                    SpawnPoint = new Vector2(o.Location.Center.X, o.Location.Center.Y);
-                    Position = SpawnPoint;
-                }
-            }
+            Active = true;
+            spawnAlpha = 0f;
+            Position = loc;
+            Direction = new Vector2(-1, 0);
+            Velocity = Vector2.Zero;
         }
 
-        public void LoadContent(ContentManager content)
-        {
-            spriteSheet = content.Load<Texture2D>("hero");
-        }
+        
 
         public void Update(GameTime gameTime)
         {
-            
-            
+            if (!Active) return;
+
+            if (spawnAlpha < 1f) spawnAlpha += 0.1f;
 
             CollisionCheck();
-            JumpsCheck();
+            //JumpsCheck();
 
             Velocity = Vector2.Clamp(Velocity, new Vector2(-4, -15), new Vector2(4, 15));
+            
            
 
             if (Position.Y > GameManager.Map.Height*GameManager.Map.TileHeight)
             {
-                Position = SpawnPoint;
-                Velocity = new Vector2(3, 0);
+                Active = false;
+                //Position = SpawnPoint;
+               // Velocity = new Vector2(3, 0);
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(spriteSheet, Position - GameManager.Camera.Position, null, Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+            if (!Active) return;
+
+            spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[0], Position - GameManager.Camera.Position, null, Color.White * spawnAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
         }
 
         bool CollisionCheck()
         {
             bool collidedx = false;
             bool collidedy = false;
+
+            bool changedir = false;
 
             var t = GameManager.Map.Layers.Where(l => l.Name == "FG").First();
             TileLayer tileLayer = t as TileLayer;
@@ -88,15 +87,17 @@ namespace YouAreTheVillain
             x=-1;
             for (y = 0; y <= 1; y++)
             {
-                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2)))) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)))) / GameManager.Map.TileHeight));
+                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2))) + (x*-6)) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)))) / GameManager.Map.TileHeight));
 
                 if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
                 if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
 
                 if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                 {
-                    collidedx = true;
+                    if(Velocity.X<0) collidedx = true;
                     //Velocity.X = 0;
+
+                    if (y == 0 && Velocity.X<0) changedir = true;
                 }
                 
             }
@@ -105,15 +106,17 @@ namespace YouAreTheVillain
             x = 1;
             for (y = 0; y <= 1; y++)
             {
-                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2)))) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)))) / GameManager.Map.TileHeight));
+                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2))) + (x * -6)) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)))) / GameManager.Map.TileHeight));
 
                 if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
                 if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
 
                 if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                 {
-                    collidedx = true;
+                    if (Velocity.X > 0) collidedx = true;
                     //Velocity.X = 0;
+
+                    if (y == 0 && Velocity.X > 0) changedir = true;
                 }
 
             }
@@ -135,7 +138,7 @@ namespace YouAreTheVillain
                         Velocity.Y = 0;
                         
                     }
-                    Position.Y -= 1f;
+                    Position.Y = ((tilePos.Y-1) * 64)+30;
                 }
 
                 
@@ -145,8 +148,17 @@ namespace YouAreTheVillain
             if (!collidedx)
             {
                 Position.X += Velocity.X;
-                if (Velocity.X < 4) Velocity.X += 0.5f;
+                Velocity += 0.5f * Direction;
             }
+
+            if (changedir)
+            {
+                Direction = -Direction;
+                //Position += Direction * 10f;
+                Velocity.X = Direction.X * 4f;
+                Position.X += Velocity.X;
+            }
+
             if (!collidedy)
             {
                 Velocity += Gravity;
@@ -167,7 +179,7 @@ namespace YouAreTheVillain
                 {
                     if (o.Location.Contains(new Point((int)Position.X, (int)(Position.Y + (frameSize.Y)))))
                     {
-                        if(randomNumber.Next(10)==1 || (o.Properties["MustJump"].ToLower()=="true"))
+                        if(MinionManager.randomNumber.Next(10)==1 || (o.Properties["MustJump"].ToLower()=="true"))
                         {
                             if(o.Type=="Full")
                                 Velocity.Y=-13f;

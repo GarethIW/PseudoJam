@@ -10,6 +10,7 @@
 #region Using Statements
 using System;
 using System.Threading;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -34,6 +35,7 @@ namespace YouAreTheVillain
         Map gameMap;
         Camera gameCamera;
         Hero gameHero;
+        MinionManager gameMinionManager;
 
         #endregion
 
@@ -65,8 +67,12 @@ namespace YouAreTheVillain
             gameMap = content.Load<Map>("rockmap");
             gameCamera = new Camera(ScreenManager.GraphicsDevice.Viewport, gameMap);
 
+            gameMinionManager = new MinionManager();
+            gameMinionManager.LoadContent(content);
+
             GameManager.Map = gameMap;
             GameManager.Camera = gameCamera;
+            GameManager.MinionManager = gameMinionManager;
 
             gameHero = new Hero();
             gameHero.LoadContent(content);
@@ -108,6 +114,7 @@ namespace YouAreTheVillain
             {
                 gameCamera.Update(ScreenManager.GraphicsDevice.Viewport);
                 gameHero.Update(gameTime);
+                gameMinionManager.Update(gameTime);
             }
         }
 
@@ -148,6 +155,43 @@ namespace YouAreTheVillain
                 {
                     gameCamera.Target -= input.DragGesture.Value.Delta;
                 }
+
+                if (input.TapPosition.HasValue)
+                {
+                    Vector2 tapPos = input.TapPosition.Value;
+
+                    tapPos += gameCamera.Position;
+
+                    Point tilePos = new Point((int)tapPos.X / 64, (int)tapPos.Y / 64);
+
+                    var t = gameMap.Layers.Where(l => l.Name == "FG").First();
+                    TileLayer tileLayer = t as TileLayer;
+
+                    bool found = false;
+
+                    while (!found)
+                    {
+                        if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                            tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) || tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
+                        {
+                            if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
+                            {
+                                if (tilePos.Y - 1 >= tileLayer.Tiles.GetLowerBound(1))
+                                {
+                                    if (tileLayer.Tiles[tilePos.X, tilePos.Y - 1] == null)
+                                    {
+                                        gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, (tilePos.Y * 64) - 32));
+                                        found = true;
+                                    }
+                                    else tilePos.Y -= 1;
+                                }
+                                else found = true;
+                            }
+                            else found = true;
+                        }
+                        else found = true;
+                    }
+                }
             }
         }
 
@@ -169,6 +213,7 @@ namespace YouAreTheVillain
             gameMap.DrawLayer(spriteBatch, "FG", gameCamera);
 
             gameHero.Draw(spriteBatch);
+            gameMinionManager.Draw(spriteBatch);
 
             spriteBatch.End();
 
