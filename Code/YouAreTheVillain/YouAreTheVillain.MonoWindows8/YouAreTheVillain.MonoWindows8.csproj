@@ -135,6 +135,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\ButtonManager.cs">
+      <Link>ButtonManager.cs</Link>
+    </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\GameManager.cs">
       <Link>GameManager.cs</Link>
     </Compile>
