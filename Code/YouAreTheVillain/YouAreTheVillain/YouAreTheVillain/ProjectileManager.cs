@@ -82,14 +82,14 @@ namespace YouAreTheVillain
                 if (p.Active)
                 {
                     p.Position += p.Speed;
-                    Point tilePos = new Point((int)((p.Position.X + (p.Speed.X * 2f)) / GameManager.Map.TileWidth), (int)((p.Position.Y) / GameManager.Map.TileHeight));
+                    Point tilePos = new Point((int)((p.Position.X + (p.Speed.X)) / GameManager.Map.TileWidth), (int)((p.Position.Y) / GameManager.Map.TileHeight));
                     if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) && tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
                         tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) && tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
                     {
                         if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                         {
                             p.Active = false;
-                            p.StuckInWall = true;
+                            if(p.Type==0) p.StuckInWall = true;
                         }
                     }
 
@@ -98,7 +98,7 @@ namespace YouAreTheVillain
                     {
                         foreach (Minion m in GameManager.MinionManager.Minions)
                         {
-                            if(m.Active && m.spawnAlpha>=1f && !p.Impaling)
+                            if (m.Active && m.spawnAlpha >= 1f && !p.Impaling)
                             {
                                 if ((m.Position - p.Position).Length() < 32f)
                                 {
@@ -108,6 +108,18 @@ namespace YouAreTheVillain
                             }
                         }
                     }
+                    else
+                    {
+                        if ((GameManager.Hero.Position - p.Position).Length() < 32f)
+                        {
+                            if (GameManager.Hero.painAlpha <= 0f && GameManager.Hero.HP>0)
+                            {
+                                GameManager.Hero.HP -= 1;
+                                GameManager.Hero.painAlpha = 1f;
+                            }
+                        }
+                    }
+                    
                 }
             }
         }
@@ -117,7 +129,7 @@ namespace YouAreTheVillain
             foreach (Projectile p in Projectiles)
             {
                 if(p.Active || p.StuckInWall)
-                    spriteBatch.Draw(spriteSheet, p.Position - GameManager.Camera.Position, new Rectangle(p.Type * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                    spriteBatch.Draw(spriteSheet, p.Position - GameManager.Camera.Position, new Rectangle((p.Impaling || p.StuckInWall) ? 0 : randomNumber.Next(2) * (int)frameSize.X, p.Type * (int)frameSize.Y, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, p.Speed.X > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 1);
             }
         }
     }
