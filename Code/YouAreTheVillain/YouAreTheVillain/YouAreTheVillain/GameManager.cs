@@ -14,5 +14,6 @@ namespace YouAreTheVillain
 
         public static MinionManager MinionManager;
         public static ButtonManager ButtonManager;
+        public static ProjectileManager ProjectileManager;
     }
 }

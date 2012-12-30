@@ -104,6 +104,13 @@ namespace YouAreTheVillain
 
             bool changedir = false;
 
+            if (Type == 3)
+            {
+                Position.X += Velocity.X;
+                Velocity += 0.5f * Direction;
+                return false;
+            }
+
             var t = GameManager.Map.Layers.Where(l => l.Name == "FG").First();
             TileLayer tileLayer = t as TileLayer;
 
