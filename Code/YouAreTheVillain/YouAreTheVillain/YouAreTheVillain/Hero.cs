@@ -224,6 +224,11 @@ namespace YouAreTheVillain
 
         bool CollisionCheck()
         {
+            //if (HP == 0 && onGround)
+            //{
+            //    return false;
+            //}
+
             bool collidedx = false;
             bool collidedy = false;
 
