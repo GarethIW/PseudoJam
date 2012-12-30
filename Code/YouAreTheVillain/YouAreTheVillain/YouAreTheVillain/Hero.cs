@@ -28,10 +28,10 @@ namespace YouAreTheVillain
         public double SpawnTime;
         float spawnAlpha = 0f;
 
-        double animTime = 100;
+        double animTime = 50;
         double currentFrameTime = 0;
         int animFrame = 1;
-        int numFrames = 3;
+        int numFrames = 9;
         bool onGround = true;
 
         Vector2 SpawnPoint;
