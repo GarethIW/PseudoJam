@@ -37,6 +37,10 @@ namespace YouAreTheVillain
         Hero gameHero;
         MinionManager gameMinionManager;
 
+        Vector2 HeartsPos = new Vector2(50, 50);
+        Vector2 floatingHeartPos = new Vector2(0, -100);
+        Texture2D texHearts;
+
         #endregion
 
         #region Initialization
@@ -65,6 +69,7 @@ namespace YouAreTheVillain
                 content = new ContentManager(ScreenManager.Game.Services, "YouAreTheVillainContent");
 
             gameFont = content.Load<SpriteFont>("menufont");
+            texHearts = content.Load<Texture2D>("hearts");
 
             gameMap = content.Load<Map>("rockmap");
             gameCamera = new Camera(ScreenManager.GraphicsDevice.Viewport, gameMap);
@@ -118,6 +123,11 @@ namespace YouAreTheVillain
                 gameHero.Update(gameTime);
                 gameMinionManager.Update(gameTime);
             }
+
+            floatingHeartPos -= new Vector2(0, 1f);
+
+            if (gameHero.painAlpha == 1f)
+                floatingHeartPos = HeartsPos + new Vector2((40 * (gameHero.HP)), 0);
         }
 
 
@@ -227,6 +237,22 @@ namespace YouAreTheVillain
             {
                 spriteBatch.DrawString(gameFont, "Congratulations\nYou defeated the Hero", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 100), Color.White, 0f, gameFont.MeasureString("Congratulations\nYou defeated the Hero") / 2, 1f, SpriteEffects.None, 1);
             }
+
+            spriteBatch.Draw(texHearts, floatingHeartPos, new Rectangle(64, 0, 32, 32), Color.White);
+
+            for (int i = 0; i < gameHero.MaxHP; i++)
+            {
+                if (gameHero.HP >= i + 1)
+                {
+                    spriteBatch.Draw(texHearts, HeartsPos + new Vector2(i * 40, 0), new Rectangle(0, 0, 32, 32), Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(texHearts, HeartsPos + new Vector2(i * 40, 0), new Rectangle(32, 0, 32, 32), Color.White);
+                }
+            }
+
+            
 
             spriteBatch.End();
 

@@ -22,6 +22,7 @@ namespace YouAreTheVillain
         public Vector2 Velocity = new Vector2(0,0);
 
         public int HP = 6;
+        public int MaxHP = 6;
         public float painAlpha = 0f;
 
         public double SpawnTime;
@@ -167,18 +168,58 @@ namespace YouAreTheVillain
 
         void Combat()
         {
-            // Check collision
+            var t = GameManager.Map.Layers.Where(l => l.Name == "FG").First();
+            TileLayer tileLayer = t as TileLayer;
+
             foreach (Minion m in GameManager.MinionManager.Minions)
             {
+                if (!m.Active || m.Squished) continue;
+                // Check collision
                 if ((Position - m.Position).Length() < 64)
                 {
-                    if (painAlpha <= 0f)
+                    if ((Position.Y - m.Position.Y) < -40 && Velocity.Y>0f)
                     {
-                        HP -= 1;
-                        painAlpha = 1f;
+                        // Jumped on top of minion
+                        m.Squished = true;
+                    }
+                    else
+                    {
+                        if (painAlpha <= 0f && m.spawnAlpha>=1f)
+                        {
+                            HP -= 1;
+                            painAlpha = 1f;
+                        }
                     }
                 }
+
+                // Check jump distance
+                if ((m.Position.X - Position.X) > 0 && (m.Position.X - Position.X) < 400 &&
+                   (m.Position.Y - Position.Y) > -10 && (m.Position.Y - Position.Y) < 10 &&
+                    onGround)
+                {
+                    // Check that there is no pit or obstacle in front
+                    bool found = false;
+
+                    Point tileP = new Point((int)((Position.X + 150) / GameManager.Map.TileWidth), (int)((Position.Y + (((frameSize.Y / 2) + 5))) / GameManager.Map.TileHeight));
+                    if (tileP.X >= tileLayer.Tiles.GetLowerBound(0) && tileP.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                        tileP.Y >= tileLayer.Tiles.GetLowerBound(1) && tileP.Y <= tileLayer.Tiles.GetUpperBound(1))
+                        if (tileLayer.Tiles[tileP.X, tileP.Y] == null)
+                            found = true;
+                        
+                    tileP = new Point((int)((Position.X + 64) / GameManager.Map.TileWidth), (int)((Position.Y) / GameManager.Map.TileHeight));
+                    if (tileP.X >= tileLayer.Tiles.GetLowerBound(0) && tileP.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                        tileP.Y >= tileLayer.Tiles.GetLowerBound(1) && tileP.Y <= tileLayer.Tiles.GetUpperBound(1))
+                        if (tileLayer.Tiles[tileP.X, tileP.Y] != null)
+                            found = true;
+
+
+                    if (!found) Velocity.Y = -10f;
+                    
+                }
             }
+
+            
+
         }
 
         bool CollisionCheck()
