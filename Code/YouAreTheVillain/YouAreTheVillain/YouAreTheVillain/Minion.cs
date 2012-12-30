@@ -78,7 +78,7 @@ namespace YouAreTheVillain
             CollisionCheck();
             //JumpsCheck();
 
-            Velocity = Vector2.Clamp(Velocity, new Vector2(-4, -15), new Vector2(4, 15));
+            Velocity = Vector2.Clamp(Velocity, new Vector2(-3.5f, -15f), new Vector2(3.5f, 15f));
             
            
 
