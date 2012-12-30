@@ -17,6 +17,9 @@ namespace YouAreTheVillain
     public class Minion
     {
         public bool Active = false;
+        public bool Squished = true;
+
+        float squishAmount = 1f;
 
         public Vector2 Position;
         public Vector2 Velocity = new Vector2(0,0);
@@ -24,7 +27,7 @@ namespace YouAreTheVillain
 
         public int Type = 0;
 
-        float spawnAlpha = 0f;
+        public float spawnAlpha = 0f;
 
         Vector2 SpawnPoint;
         Vector2 Gravity = new Vector2(0, 0.5f);
@@ -42,6 +45,8 @@ namespace YouAreTheVillain
             Direction = new Vector2(-1, 0);
             Velocity = Vector2.Zero;
             Type = type;
+            squishAmount = 1f;
+            Squished = false;
         }
 
         
@@ -50,7 +55,25 @@ namespace YouAreTheVillain
         {
             if (!Active) return;
 
-            if (spawnAlpha < 1f) spawnAlpha += 0.1f;
+            if (Squished)
+            {
+                if (squishAmount > 0.1f)
+                {
+                    squishAmount -= 0.1f;
+                }
+                else
+                {
+                    spawnAlpha -= 0.005f;
+                    if (spawnAlpha <= 0.1f) Active = false;
+                }
+                return;
+            }
+
+            if (spawnAlpha < 1f)
+            {
+                spawnAlpha += 0.02f;
+                return;
+            }
 
             CollisionCheck();
             //JumpsCheck();
@@ -71,7 +94,7 @@ namespace YouAreTheVillain
         {
             if (!Active) return;
 
-            spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[Type], Position - GameManager.Camera.Position, null, Color.White * spawnAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+            spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[Type], (Position + new Vector2(0, 32*(1f-squishAmount))) - GameManager.Camera.Position, null, Color.White * spawnAlpha, 0f, frameSize / 2, new Vector2(1f, squishAmount), SpriteEffects.None, 1);
         }
 
         bool CollisionCheck()
