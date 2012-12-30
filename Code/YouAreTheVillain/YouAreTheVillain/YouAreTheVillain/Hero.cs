@@ -188,7 +188,7 @@ namespace YouAreTheVillain
 
             foreach (Minion m in GameManager.MinionManager.Minions)
             {
-                if (!m.Active || m.Squished) continue;
+                if (!m.Active || m.Squished || m.Impaled) continue;
                 // Check collision
                 if ((Position - m.Position).Length() < 64)
                 {

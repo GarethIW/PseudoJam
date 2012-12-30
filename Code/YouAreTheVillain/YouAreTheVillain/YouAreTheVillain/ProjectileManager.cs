@@ -17,6 +17,7 @@ namespace YouAreTheVillain
         public int Type;
         public bool Active;
         public bool StuckInWall = false;
+        public bool Impaling = false;
 
         public void Spawn(Vector2 pos, Vector2 speed, bool heroowner, int type)
         {
@@ -25,6 +26,8 @@ namespace YouAreTheVillain
             Speed = speed;
             OwnedByHero = heroowner;
             Type = type;
+            StuckInWall = false;
+            Impaling = false;
         }
     }
 
@@ -61,7 +64,7 @@ namespace YouAreTheVillain
         {
             foreach (Projectile p in Projectiles)
             {
-                if (!p.Active && !p.StuckInWall)
+                if (!p.Active && !p.StuckInWall && !p.Impaling)
                 {
                     p.Spawn(loc, speed, ownerhero, type);
                     break;
@@ -95,12 +98,12 @@ namespace YouAreTheVillain
                     {
                         foreach (Minion m in GameManager.MinionManager.Minions)
                         {
-                            if(m.Active && m.spawnAlpha>=1f)
+                            if(m.Active && m.spawnAlpha>=1f && !p.Impaling)
                             {
                                 if ((m.Position - p.Position).Length() < 32f)
                                 {
-                                    m.Active = false;
-                                    p.Active = false;
+                                    m.Impaled = true;
+                                    p.Impaling = true;
                                 }
                             }
                         }
