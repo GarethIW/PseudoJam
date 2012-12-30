@@ -12,20 +12,23 @@
   </data>
  </layer>
  <objectgroup name="Spawn" width="100" height="15">
-  <object x="48" y="694" width="52" height="72"/>
+  <object x="1924" y="694" width="52" height="72"/>
+  <object x="0" y="693" width="52" height="72"/>
+  <object x="3651" y="566" width="52" height="72"/>
+  <object x="5121" y="629" width="52" height="72"/>
  </objectgroup>
  <objectgroup name="Jumps" width="100" height="15">
-  <object type="Full" x="162" y="765" width="15" height="52">
+  <object type="Full" x="169" y="760" width="24" height="51">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Full" x="402" y="636" width="15" height="51">
+  <object type="Full" x="402" y="636" width="35" height="48">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Half" x="623" y="827" width="11" height="55">
+  <object type="Half" x="622" y="824" width="24" height="54">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
@@ -50,7 +53,7 @@
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="1417" y="776" width="46" height="64">
+  <object type="Full" x="1417" y="765" width="46" height="64">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
@@ -100,7 +103,7 @@
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Half" x="3083" y="763" width="48" height="56">
+  <object type="Half" x="3088" y="756" width="48" height="56">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
@@ -110,7 +113,7 @@
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Half" x="3272" y="833" width="48" height="56">
+  <object type="Half" x="3275" y="825" width="48" height="56">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
@@ -145,7 +148,7 @@
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="4046" y="505" width="48" height="56">
+  <object type="Full" x="4059" y="503" width="48" height="56">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
@@ -180,7 +183,7 @@
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="5130" y="314" width="48" height="56">
+  <object type="Half" x="5145" y="313" width="48" height="56">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
@@ -190,27 +193,37 @@
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="5259" y="698" width="48" height="56">
+  <object type="Half" x="5288" y="692" width="40" height="55">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="5385" y="636" width="48" height="56">
+  <object type="Half" x="5403" y="631" width="48" height="56">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="5513" y="570" width="48" height="56">
+  <object type="Half" x="5527" y="567" width="48" height="56">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="5639" y="505" width="48" height="56">
+  <object type="Half" x="5656" y="505" width="48" height="56">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="3147" y="831" width="48" height="56">
+  <object type="Full" x="3144" y="826" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="5321" y="378" width="48" height="56">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Half" x="523" y="561" width="46" height="62">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>

@@ -22,6 +22,8 @@ namespace YouAreTheVillain
         public Vector2 Velocity = new Vector2(0,0);
         public Vector2 Direction = new Vector2(0, 0);
 
+        public int Type = 0;
+
         float spawnAlpha = 0f;
 
         Vector2 SpawnPoint;
@@ -32,13 +34,14 @@ namespace YouAreTheVillain
         public Minion()
         { }
 
-        public void Spawn(Vector2 loc) 
+        public void Spawn(Vector2 loc, int type) 
         {
             Active = true;
             spawnAlpha = 0f;
             Position = loc;
             Direction = new Vector2(-1, 0);
             Velocity = Vector2.Zero;
+            Type = type;
         }
 
         
@@ -68,7 +71,7 @@ namespace YouAreTheVillain
         {
             if (!Active) return;
 
-            spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[0], Position - GameManager.Camera.Position, null, Color.White * spawnAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+            spriteBatch.Draw(GameManager.MinionManager.SpriteSheets[Type], Position - GameManager.Camera.Position, null, Color.White * spawnAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
         }
 
         bool CollisionCheck()
@@ -139,10 +142,28 @@ namespace YouAreTheVillain
                         
                     }
                     Position.Y = ((tilePos.Y-1) * 64)+30;
+
+                    
                 }
 
                 
 
+            }
+
+            if (Type == 1)
+            {
+                Point tilePos = new Point((int)((Position.X + (Direction.X * ((frameSize.X / 2)))) / GameManager.Map.TileWidth), (int)((Position.Y + (((frameSize.Y / 2)+5))) / GameManager.Map.TileHeight));
+                if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) && tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                    tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) && tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
+                {
+                    if (tileLayer.Tiles[tilePos.X, tilePos.Y] == null)
+                    {
+                        Direction = -Direction;
+                        Velocity.X = Direction.X * 6f;
+                        Position.X += Velocity.X;
+                    }
+                }
+                
             }
 
             if (!collidedx)
@@ -161,8 +182,12 @@ namespace YouAreTheVillain
 
             if (!collidedy)
             {
-                Velocity += Gravity;
-                Position.Y += Velocity.Y;
+                
+                    Velocity += Gravity;
+                    Position.Y += Velocity.Y;
+                
+                    
+               
             }
 
             return collidedx || collidedy;

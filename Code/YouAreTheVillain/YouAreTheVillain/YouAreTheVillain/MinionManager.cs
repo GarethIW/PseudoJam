@@ -32,15 +32,16 @@ namespace YouAreTheVillain
         public void LoadContent(ContentManager content)
         {
             SpriteSheets.Add(content.Load<Texture2D>("minion1"));
+            SpriteSheets.Add(content.Load<Texture2D>("minion2"));
         }
 
-        public void Add(Vector2 loc)
+        public void Add(Vector2 loc, int type)
         {
             foreach (Minion m in Minions)
             {
                 if (!m.Active)
                 {
-                    m.Spawn(loc);
+                    m.Spawn(loc, type);
                     break;
                 }
             }

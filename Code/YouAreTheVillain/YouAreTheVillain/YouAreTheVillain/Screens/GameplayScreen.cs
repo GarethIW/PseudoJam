@@ -64,7 +64,7 @@ namespace YouAreTheVillain
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "YouAreTheVillainContent");
 
-            //gameFont = content.Load<SpriteFont>("gamefont");
+            gameFont = content.Load<SpriteFont>("menufont");
 
             gameMap = content.Load<Map>("rockmap");
             gameCamera = new Camera(ScreenManager.GraphicsDevice.Viewport, gameMap);
@@ -171,6 +171,8 @@ namespace YouAreTheVillain
 
                     bool found = false;
 
+                    int type = MinionManager.randomNumber.Next(2);
+
                     while (!found)
                     {
                         if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
@@ -182,7 +184,7 @@ namespace YouAreTheVillain
                                 {
                                     if (tileLayer.Tiles[tilePos.X, tilePos.Y - 1] == null)
                                     {
-                                        gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, (tilePos.Y * 64) - 32));
+                                        gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, (tilePos.Y * 64) - 32), type);
                                         found = true;
                                     }
                                     else tilePos.Y -= 1;
@@ -216,6 +218,15 @@ namespace YouAreTheVillain
 
             gameHero.Draw(spriteBatch);
             gameMinionManager.Draw(spriteBatch);
+
+            if (gameHero.SpawnTime > 0)
+            {
+                spriteBatch.DrawString(gameFont, "Hero spawning in " + (int)(gameHero.SpawnTime / 1000), new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 100), Color.White, 0f, gameFont.MeasureString("Hero spawning in " + (int)(gameHero.SpawnTime / 1000)) / 2, 1f, SpriteEffects.None, 1);
+            }
+            if (gameHero.HP <= 0)
+            {
+                spriteBatch.DrawString(gameFont, "Congratulations\nYou defeated the Hero", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 100), Color.White, 0f, gameFont.MeasureString("Congratulations\nYou defeated the Hero") / 2, 1f, SpriteEffects.None, 1);
+            }
 
             spriteBatch.End();
 
