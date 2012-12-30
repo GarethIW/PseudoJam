@@ -37,12 +37,12 @@ namespace YouAreTheVillain
         Hero gameHero;
         MinionManager gameMinionManager;
         ButtonManager gameButtonManager;
+        ProjectileManager gameProjectileManager;
 
         Vector2 HeartsPos = new Vector2(50, 50);
         Vector2 floatingHeartPos = new Vector2(0, -100);
         Texture2D texHearts;
         Texture2D texArrow;
-        Vector2 ArrowPos;
 
         #endregion
 
@@ -81,9 +81,13 @@ namespace YouAreTheVillain
             gameMinionManager = new MinionManager();
             gameMinionManager.LoadContent(content);
 
+            gameProjectileManager = new ProjectileManager();
+            gameProjectileManager.LoadContent(content);
+
             GameManager.Map = gameMap;
             GameManager.Camera = gameCamera;
             GameManager.MinionManager = gameMinionManager;
+            GameManager.ProjectileManager = gameProjectileManager;
 
             gameHero = new Hero();
             gameHero.LoadContent(content);
@@ -130,6 +134,7 @@ namespace YouAreTheVillain
                 gameCamera.Update(ScreenManager.GraphicsDevice.Viewport);
                 gameHero.Update(gameTime);
                 gameMinionManager.Update(gameTime);
+                gameProjectileManager.Update(gameTime);
             }
 
             floatingHeartPos -= new Vector2(0, 1f);
@@ -194,29 +199,42 @@ namespace YouAreTheVillain
 
                         bool found = false;
 
-                        int type = MinionManager.randomNumber.Next(2);
+                        int type = gameButtonManager.SelectedButton;
 
-                        while (!found)
+                        if (gameButtonManager.Buttons[gameButtonManager.SelectedButton].CurrentCoolDown <= 0)
                         {
-                            if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
-                                tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) || tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
+
+                            if (type != 3)
                             {
-                                if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
+                                while (!found)
                                 {
-                                    if (tilePos.Y - 1 >= tileLayer.Tiles.GetLowerBound(1))
+                                    if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                                        tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) || tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
                                     {
-                                        if (tileLayer.Tiles[tilePos.X, tilePos.Y - 1] == null)
+                                        if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                                         {
-                                            gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, (tilePos.Y * 64) - 32), type);
-                                            found = true;
+                                            if (tilePos.Y - 1 >= tileLayer.Tiles.GetLowerBound(1))
+                                            {
+                                                if (tileLayer.Tiles[tilePos.X, tilePos.Y - 1] == null)
+                                                {
+                                                    gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, (tilePos.Y * 64) - 32), type);
+                                                    gameButtonManager.Buttons[gameButtonManager.SelectedButton].CurrentCoolDown = gameButtonManager.Buttons[gameButtonManager.SelectedButton].CoolDown;
+                                                    found = true;
+                                                }
+                                                else tilePos.Y -= 1;
+                                            }
+                                            else found = true;
                                         }
-                                        else tilePos.Y -= 1;
+                                        else found = true;
                                     }
                                     else found = true;
                                 }
-                                else found = true;
                             }
-                            else found = true;
+                            else
+                            {
+                                gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, (tilePos.Y * 64) + 32), type);
+                                gameButtonManager.Buttons[gameButtonManager.SelectedButton].CurrentCoolDown = gameButtonManager.Buttons[gameButtonManager.SelectedButton].CoolDown;
+                            }
                         }
                     }
                 }
@@ -261,6 +279,8 @@ namespace YouAreTheVillain
                 spriteBatch.Draw(texArrow, new Vector2(gameCamera.Width - 100, MathHelper.Clamp(gameHero.Position.Y - gameCamera.Position.Y, 100, gameCamera.Height)), null, Color.White, 0f, new Vector2(texArrow.Width, texArrow.Height) / 2, 1f, SpriteEffects.None, 1);
             }
 
+            gameProjectileManager.Draw(spriteBatch);
+
             spriteBatch.Draw(texHearts, floatingHeartPos, new Rectangle(64, 0, 32, 32), Color.White);
 
             for (int i = 0; i < gameHero.MaxHP; i++)
@@ -273,6 +293,13 @@ namespace YouAreTheVillain
                 {
                     spriteBatch.Draw(texHearts, HeartsPos + new Vector2(i * 40, 0), new Rectangle(32, 0, 32, 32), Color.White);
                 }
+            }
+
+            for (int i = 0; i < gameHero.numSwords; i++)
+            {
+                
+                spriteBatch.Draw(gameProjectileManager.spriteSheet, HeartsPos + new Vector2(300,15) + new Vector2(i * 30, 0), new Rectangle(0, 0, 64, 64), Color.White, MathHelper.PiOver2, new Vector2(32,32), 1f, SpriteEffects.None, 1);
+                
             }
 
             gameButtonManager.Draw(spriteBatch);
