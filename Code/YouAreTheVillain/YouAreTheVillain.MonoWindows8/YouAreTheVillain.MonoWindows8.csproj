@@ -267,6 +267,10 @@
       <Link>YouAreTheVillainContent\minion4.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\Princess.xnb">
+      <Link>YouAreTheVillainContent\Princess.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\projectiles.xnb">
       <Link>YouAreTheVillainContent\projectiles.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -291,6 +295,7 @@
       <Name>TiledLib.MonoWindows8</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

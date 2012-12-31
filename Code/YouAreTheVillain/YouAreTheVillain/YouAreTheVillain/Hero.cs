@@ -25,6 +25,8 @@ namespace YouAreTheVillain
         public int MaxHP = 6;
         public float painAlpha = 0f;
 
+        public bool ReachedPrincess = false;
+
         public double SpawnTime;
         float spawnAlpha = 0f;
 
@@ -43,6 +45,7 @@ namespace YouAreTheVillain
         public int numSwords = 3;
         double swordRefreshTime;
         double swordAttackTime;
+
 
 
         public Hero()
@@ -150,6 +153,8 @@ namespace YouAreTheVillain
             {
                 Velocity = Vector2.Zero;
                 Respawn();
+                HP -= 1;
+                painAlpha = 1f;
             }
         }
 
@@ -158,6 +163,12 @@ namespace YouAreTheVillain
             if (HP <= 0)
             {
                 spriteBatch.Draw(spriteSheet, (Position + new Vector2(0,5)) - GameManager.Camera.Position, new Rectangle(10 * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                return;
+            }
+
+            if (ReachedPrincess)
+            {
+                spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 5)) - GameManager.Camera.Position, new Rectangle(11 * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 return;
             }
 
@@ -181,7 +192,7 @@ namespace YouAreTheVillain
 
         void Combat()
         {
-            
+            if (ReachedPrincess) return;
 
             var t = GameManager.Map.Layers.Where(l => l.Name == "FG").First();
             TileLayer tileLayer = t as TileLayer;
@@ -273,6 +284,8 @@ namespace YouAreTheVillain
             //    return false;
             //}
 
+            if (ReachedPrincess && onGround) return false;
+
             bool collidedx = false;
             bool collidedy = false;
 
@@ -350,6 +363,12 @@ namespace YouAreTheVillain
                     }
                     else onGround = true;
                 }
+            }
+
+            if ((GameManager.princessPosition - Position).Length() < 64)
+            {
+                collidedx = true;
+                ReachedPrincess = true;
             }
 
             if (!collidedx)

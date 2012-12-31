@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,14 @@ namespace YouAreTheVillain
         public double CurrentCoolDown = 0;
         public double CoolDown = 1000;
         public int MinionType;
+        public Keys ShortcutKey;
 
-        public Button(int type, double cd)
+        public Button(int type, double cd, Keys shortcut)
         {
             MinionType = type;
             CoolDown = cd;
-            CurrentCoolDown = cd;
+            CurrentCoolDown = 0;
+            ShortcutKey = shortcut;
         }
 
         public void Update(GameTime gameTime)
@@ -46,10 +49,10 @@ namespace YouAreTheVillain
 
         public void Initialize()
         {
-            Buttons.Add(new Button(0, 1000));
-            Buttons.Add(new Button(1, 3000));
-            Buttons.Add(new Button(2, 5000));
-            Buttons.Add(new Button(3, 10000));
+            Buttons.Add(new Button(0, 1000, Keys.D1));
+            Buttons.Add(new Button(1, 3000, Keys.D2));
+            Buttons.Add(new Button(2, 5000, Keys.D3));
+            Buttons.Add(new Button(3, 5000, Keys.D4));
 
             Position = new Vector2((GameManager.Camera.Width / 2) - ((Buttons.Count*buttonSize.X)/2), GameManager.Camera.Height - buttonSize.Y);
         }
@@ -65,9 +68,15 @@ namespace YouAreTheVillain
                 b.Update(gameTime);
         }
 
-        public bool HandleInput(Vector2 tapPos)
+        public bool HandleInput(InputState input)
         {
             bool handled = false;
+
+            Vector2 tapPos = Vector2.Zero;
+            if (input.TapPosition.HasValue)
+            {
+                tapPos = input.TapPosition.Value;
+            }
 
             Vector2 testPos = Position;
             foreach (Button b in Buttons)
@@ -82,7 +91,11 @@ namespace YouAreTheVillain
                 }
 
                 testPos += new Vector2(buttonSize.X, 0);
+
+                if(input.CurrentKeyboardStates[0].IsKeyDown(b.ShortcutKey)) SelectedButton = Buttons.IndexOf(b);
             }
+
+
 
             return handled;
         }
