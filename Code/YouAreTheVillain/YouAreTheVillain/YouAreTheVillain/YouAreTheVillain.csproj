@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="AudioController.cs" />
     <Compile Include="ButtonManager.cs" />
+    <Compile Include="ParallaxManager.cs" />
     <Compile Include="ProjectileManager.cs" />
     <Compile Include="Minion.cs" />
     <Compile Include="GameManager.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />
     <Compile Include="Screens\BackgroundScreen.cs" />
+    <Compile Include="Screens\AboutScreen.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\LoadingScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />

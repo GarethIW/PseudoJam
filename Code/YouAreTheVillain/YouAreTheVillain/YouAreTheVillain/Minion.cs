@@ -128,6 +128,9 @@ namespace YouAreTheVillain
                     {
                         projectileTime = 0;
                         GameManager.ProjectileManager.Add(Position + (Direction * 20), Direction * 10, false, 1);
+
+                        if(Position.X>GameManager.Camera.Position.X && Position.X<GameManager.Camera.Position.X+GameManager.Camera.Width)
+                            AudioController.PlaySFX("fireball", ((float)AudioController.randomNumber.NextDouble() * 0.5f) + 0.25f, 0.5f);
                     }
                 }
             }

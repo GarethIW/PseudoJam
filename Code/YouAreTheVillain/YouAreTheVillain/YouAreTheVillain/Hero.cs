@@ -146,7 +146,7 @@ namespace YouAreTheVillain
             JumpsCheck();
             Combat();
 
-            Velocity = Vector2.Clamp(Velocity, new Vector2(-3.5f, -15), new Vector2(3.5f, 15));
+            Velocity = Vector2.Clamp(Velocity, new Vector2(-3f, -15), new Vector2(3f, 15));
            
 
             if (Position.Y > GameManager.Map.Height*GameManager.Map.TileHeight)
@@ -155,6 +155,7 @@ namespace YouAreTheVillain
                 Respawn();
                 HP -= 1;
                 painAlpha = 1f;
+                AudioController.PlaySFX("herohurt", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
             }
         }
 
@@ -168,7 +169,7 @@ namespace YouAreTheVillain
 
             if (ReachedPrincess)
             {
-                spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 5)) - GameManager.Camera.Position, new Rectangle(11 * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 5)) - GameManager.Camera.Position, new Rectangle((11 * (int)frameSize.X)+1, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 return;
             }
 
@@ -207,6 +208,7 @@ namespace YouAreTheVillain
                     {
                         // Jumped on top of minion
                         m.Squished = true;
+                        AudioController.PlaySFX("crush", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
                     }
                     else
                     {
@@ -214,6 +216,7 @@ namespace YouAreTheVillain
                         {
                             HP -= 1;
                             painAlpha = 1f;
+                            AudioController.PlaySFX("herohurt", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
                         }
                     }
                 }
@@ -239,7 +242,7 @@ namespace YouAreTheVillain
                             found = true;
 
 
-                    if (!found) Velocity.Y = -10f;
+                    if (!found) Velocity.Y = -11f;
                     
                 }
 
@@ -397,13 +400,16 @@ namespace YouAreTheVillain
                 {
                     if (o.Location.Contains(new Point((int)Position.X, (int)(Position.Y + (frameSize.Y/2)))))
                     {
-                        if(randomNumber.Next(10)==1 || (o.Properties["MustJump"].ToLower()=="true"))
+                        if(randomNumber.Next(10)==1 || (o.Properties["MustJump"].ToLower()=="true") && Velocity.Y>=0f)
                         {
                             if(o.Type=="Full")
-                                Velocity.Y=-13f;
+                                Velocity.Y=-13.5f;
 
                             if (o.Type == "Half")
-                                Velocity.Y = -9f;
+                                Velocity.Y = -11f;
+
+                            if (Position.X > GameManager.Camera.Position.X && Position.X < GameManager.Camera.Position.X + GameManager.Camera.Width)
+                                AudioController.PlaySFX("jump", ((float)AudioController.randomNumber.NextDouble()*0.5f) - 0.25f);
                          }
                     }
                 }
