@@ -109,12 +109,14 @@ namespace YouAreTheVillain
             GameManager.ButtonManager = gameButtonManager;
 
             gameParallaxManager = new ParallaxManager(ScreenManager.GraphicsDevice.Viewport);
-            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/sky"), Vector2.Zero, 0f));
-            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds1"), new Vector2(0,50), 0.1f));
-            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds2"), new Vector2(0, 100), 0.3f));
-            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains1"), new Vector2(0, 200), 0.5f));
-            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains2"), new Vector2(0, 400), 0.6f));
-            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains3"), new Vector2(0, 500), 0.7f));
+            gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/sky"), Vector2.Zero, 0f));
+            gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds1"), new Vector2(0, 50), -0.001f));
+            gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds2"), new Vector2(0, 0), -0.005f));
+            gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds3"), new Vector2(0, -50), -0.008f));
+            gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains3"), new Vector2(0, 300), -0.02f));
+            gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains2"), new Vector2(0, 100), -0.04f));
+            gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains1"), new Vector2(0, 140), -0.07f));
+            
 
             // Princess
             var layer = GameManager.Map.Layers.Where(l => l.Name == "Princess").First();
@@ -181,7 +183,7 @@ namespace YouAreTheVillain
 
             gameButtonManager.Update(gameTime);
 
-            
+            gameParallaxManager.Update(gameTime, gameCamera.Position);
         }
 
 
@@ -244,7 +246,7 @@ namespace YouAreTheVillain
                         if (gameButtonManager.Buttons[gameButtonManager.SelectedButton].CurrentCoolDown <= 0)
                         {
 
-                            if (type != 3)
+                            if (type != 4)
                             {
                                 if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                                 {
@@ -327,6 +329,8 @@ namespace YouAreTheVillain
 
             spriteBatch.Begin();
 
+            gameParallaxManager.Draw(spriteBatch);
+
             gameMap.DrawLayer(spriteBatch, "FG", gameCamera);
 
             gameHero.Draw(spriteBatch);
@@ -338,15 +342,23 @@ namespace YouAreTheVillain
             // HUD below this line ////////////////////////////////
             if (gameHero.SpawnTime > 0)
             {
+                spriteBatch.DrawString(gameFont, "Hero spawning in " + (int)(gameHero.SpawnTime / 1000), new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150) + new Vector2(2, 2), Color.Black, 0f, gameFont.MeasureString("Hero spawning in " + (int)(gameHero.SpawnTime / 1000)) / 2, 1f, SpriteEffects.None, 1);
                 spriteBatch.DrawString(gameFont, "Hero spawning in " + (int)(gameHero.SpawnTime / 1000), new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150), Color.White, 0f, gameFont.MeasureString("Hero spawning in " + (int)(gameHero.SpawnTime / 1000)) / 2, 1f, SpriteEffects.None, 1);
             }
             if (gameHero.HP <= 0)
             {
-                spriteBatch.DrawString(gameFont, "Congratulations\nYou defeated the Hero", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150), Color.White, 0f, gameFont.MeasureString("Congratulations\nYou defeated the Hero") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "Congratulations", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150)+new Vector2(2,2), Color.Black, 0f, gameFont.MeasureString("Congratulations") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "You defeated the Hero", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 175) + new Vector2(2, 2), Color.Black, 0f, gameFont.MeasureString("You defeated the Hero") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "Congratulations", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150), Color.White, 0f, gameFont.MeasureString("Congratulations") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "You defeated the Hero", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 175), Color.White, 0f, gameFont.MeasureString("You defeated the Hero") / 2, 1f, SpriteEffects.None, 1);
+
             }
             if (gameHero.ReachedPrincess)
             {
-                spriteBatch.DrawString(gameFont, "Oh No\nThe Hero saved the Princess", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150), Color.White, 0f, gameFont.MeasureString("Oh No\nThe Hero saved the Princess") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "Oh No", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150) + new Vector2(2, 2), Color.Black, 0f, gameFont.MeasureString("Oh No") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "The Hero rescued the princess", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 175) + new Vector2(2, 2), Color.Black, 0f, gameFont.MeasureString("The Hero rescued the princess") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "Oh No", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150), Color.White, 0f, gameFont.MeasureString("Oh No") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "The Hero rescued the princess", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 175), Color.White, 0f, gameFont.MeasureString("The Hero rescued the princess") / 2, 1f, SpriteEffects.None, 1);
             }
 
             if (gameHero.Position.X < gameCamera.Position.X)

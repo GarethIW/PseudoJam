@@ -29,6 +29,10 @@ namespace YouAreTheVillain
         Texture2D texBG;
         Texture2D texLogo;
 
+        ParallaxManager parallaxManager;
+
+        Vector2 scrollPos;
+
         #endregion
 
         #region Initialization
@@ -58,6 +62,15 @@ namespace YouAreTheVillain
 
             texBG = content.Load<Texture2D>("blank");
             texLogo = content.Load<Texture2D>("logo");
+
+            parallaxManager = new ParallaxManager(ScreenManager.GraphicsDevice.Viewport);
+            parallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/sky"), Vector2.Zero, 0f));
+            parallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds1"), new Vector2(0, 50), -0.001f));
+            parallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds2"), new Vector2(0, 0), -0.005f));
+            parallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds3"), new Vector2(0, -50), -0.008f));
+            parallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains3"), new Vector2(0, 300), -0.02f));
+            parallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains2"), new Vector2(0, 100), -0.04f));
+            parallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains1"), new Vector2(0, 140), -0.07f));
         }
 
 
@@ -85,6 +98,9 @@ namespace YouAreTheVillain
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                        bool coveredByOtherScreen)
         {
+            scrollPos += new Vector2(5f, 0f);
+            parallaxManager.Update(gameTime, scrollPos);
+
             base.Update(gameTime, otherScreenHasFocus, false);
         }
 
@@ -100,8 +116,9 @@ namespace YouAreTheVillain
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(texBG, fullscreen,
-                             Color.White * TransitionAlpha * (0.5f + (0.5f * TransitionPosition)));
+            //spriteBatch.Draw(texBG, fullscreen,
+              //               Color.White * TransitionAlpha * (0.5f + (0.5f * TransitionPosition)));
+            parallaxManager.Draw(spriteBatch);
 
             spriteBatch.Draw(texLogo, new Vector2(viewport.Width/2, viewport.Height/3), null,
                              Color.White * TransitionAlpha, 0f, new Vector2(texLogo.Width / 2, texLogo.Height / 2), 1f + (TransitionPosition * 10f), SpriteEffects.None, 1);

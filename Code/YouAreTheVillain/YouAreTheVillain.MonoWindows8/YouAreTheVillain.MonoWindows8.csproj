@@ -312,6 +312,38 @@
       <Link>YouAreTheVillainContent\SFX\Jump.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\background\clouds1.xnb">
+      <Link>YouAreTheVillainContent\Background\clouds1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\background\clouds2.xnb">
+      <Link>YouAreTheVillainContent\Background\clouds2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\background\clouds3.xnb">
+      <Link>YouAreTheVillainContent\Background\clouds3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\background\mountains1.xnb">
+      <Link>YouAreTheVillainContent\Background\mountains1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\background\mountains2.xnb">
+      <Link>YouAreTheVillainContent\Background\mountains2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\background\mountains3.xnb">
+      <Link>YouAreTheVillainContent\Background\mountains3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\background\sky.xnb">
+      <Link>YouAreTheVillainContent\Background\sky.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\minion5.xnb">
+      <Link>YouAreTheVillainContent\minion5.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="YouAreTheVillain.MonoWindows8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

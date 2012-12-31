@@ -114,11 +114,24 @@ namespace YouAreTheVillain
                     {
                         if ((GameManager.Hero.Position - p.Position).Length() < 32f)
                         {
-                            if (GameManager.Hero.painAlpha <= 0f && GameManager.Hero.HP>0 && !GameManager.Hero.ReachedPrincess)
+                            if (p.Type == 1)
                             {
-                                GameManager.Hero.HP -= 1;
-                                GameManager.Hero.painAlpha = 1f;
-                                AudioController.PlaySFX("herohurt", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
+                                if (GameManager.Hero.painAlpha <= 0f && GameManager.Hero.HP > 0 && !GameManager.Hero.ReachedPrincess)
+                                {
+                                    GameManager.Hero.HP -= 1;
+                                    GameManager.Hero.painAlpha = 1f;
+                                    AudioController.PlaySFX("herohurt", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
+                                }
+                            }
+
+                            if (p.Type == 2)
+                            {
+                                if (GameManager.Hero.frozenTime<=0 && GameManager.Hero.HP > 0 && !GameManager.Hero.ReachedPrincess)
+                                {
+                                    GameManager.Hero.frozenTime = 5000;
+                                    //GameManager.Hero.painAlpha = 1f;
+                                    //AudioController.PlaySFX("herohurt", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
+                                }
                             }
                         }
                     }

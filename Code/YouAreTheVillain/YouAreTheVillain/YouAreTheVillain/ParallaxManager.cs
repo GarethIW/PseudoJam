@@ -52,8 +52,12 @@ namespace YouAreTheVillain
 
             foreach (ParallaxLayer l in Layers)
             {
-                
-                spriteBatch.Draw(l.Texture, l.Position, null, Color.White);
+
+                for (float x = l.Position.X; x < scrollPosition.X + viewport.Width; x += l.Texture.Width)
+                {
+                    if(l.Position.X +x > -l.Texture.Width)
+                        spriteBatch.Draw(l.Texture, l.Position + new Vector2(x, 0), null, new Color(150, 150, 150));
+                }
                   
             }
         }
