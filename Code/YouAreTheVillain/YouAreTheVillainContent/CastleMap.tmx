@@ -466,6 +466,11 @@
     <property name="MustJump" value="True"/>
    </properties>
   </object>
+  <object type="Half" x="8776" y="309" width="53" height="53">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Princess" width="200" height="15">
   <object x="12530" y="492" width="59" height="84"/>
