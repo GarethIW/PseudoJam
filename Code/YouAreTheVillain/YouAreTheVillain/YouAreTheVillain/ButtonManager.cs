@@ -53,6 +53,7 @@ namespace YouAreTheVillain
             Buttons.Add(new Button(1, 3000, Keys.D2));
             Buttons.Add(new Button(2, 5000, Keys.D3));
             Buttons.Add(new Button(3, 5000, Keys.D4));
+            Buttons.Add(new Button(4, 4000, Keys.D5));
 
             Position = new Vector2((GameManager.Camera.Width / 2) - ((Buttons.Count*buttonSize.X)/2), GameManager.Camera.Height - buttonSize.Y);
         }

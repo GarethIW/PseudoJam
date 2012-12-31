@@ -66,6 +66,7 @@ namespace YouAreTheVillain
             minions.Add(content.Load<Texture2D>("minion2"));
             minions.Add(content.Load<Texture2D>("minion3"));
             minions.Add(content.Load<Texture2D>("minion4"));
+            minions.Add(content.Load<Texture2D>("minion5"));
         }
 
 
@@ -126,22 +127,25 @@ namespace YouAreTheVillain
             spriteBatch.DrawString(ScreenManager.Font, "By Paul Yendley and Gareth Williams", centerVect + new Vector2(0, 75), Color.Red * TransitionAlpha, 0f,
                                    ScreenManager.Font.MeasureString("By Paul Yendley and Gareth Williams") / 2, 1f, SpriteEffects.None, 1);
 
-            spriteBatch.DrawString(ScreenManager.Font, "This game was created in 48 hours", centerVect + new Vector2(0, 120), Color.White * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "This game was created in 48 hours", centerVect + new Vector2(0, 120), Color.LightGray * TransitionAlpha, 0f,
                                    ScreenManager.Font.MeasureString("This game was created in 48 hours") / 2, 1f, SpriteEffects.None, 1);
-            spriteBatch.DrawString(ScreenManager.Font, "Between 29.12.2012 and 31.12.2012", centerVect + new Vector2(0, 145), Color.White * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "Between 29.12.2012 and 31.12.2012", centerVect + new Vector2(0, 145), Color.LightGray * TransitionAlpha, 0f,
                                    ScreenManager.Font.MeasureString("Between 29.12.2012 and 31.12.2012") / 2, 1f, SpriteEffects.None, 1);
 
             spriteBatch.DrawString(ScreenManager.Font, "How to Play", centerVect + new Vector2(0, 190), Color.Magenta * TransitionAlpha, 0f,
                                    ScreenManager.Font.MeasureString("How to Play") / 2, 1f, SpriteEffects.None, 1);
 
-            spriteBatch.DrawString(ScreenManager.Font, "You are the Villain. Stop the hero from reaching the Princess\nby placing your minions throughout the level. Click and drag\nto navigate the level.", centerVect + new Vector2(0, 240), Color.White * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "You are the Villain. Stop the hero from reaching the Princess\nby placing your minions throughout the level. Click and drag\nto navigate the level.", centerVect + new Vector2(0, 240), Color.LightGray * TransitionAlpha, 0f,
                                    ScreenManager.Font.MeasureString("You are the Villain. Stop the hero from reaching the Princess\nby placing your minions throughout the level.  Click and drag\nto navigate the level.") / 2, 1f, SpriteEffects.None, 1);
-            spriteBatch.DrawString(ScreenManager.Font, "Each Minion has a cooldown time. Click a button to select minion\nor use keys 1..4. Click on or above a platform to place a minion.", centerVect + new Vector2(0, 325), Color.White * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "Each Minion has a cooldown time. Click a button to select minion\nor use keys 1..4. Click on or above a platform to place a minion.", centerVect + new Vector2(0, 325), Color.LightGray * TransitionAlpha, 0f,
                                    ScreenManager.Font.MeasureString("Each Minion has a cooldown time. Click a button to select minion\nor use keys 1..4. Click on or above a platform to place a minion.") / 2, 1f, SpriteEffects.None, 1);
 
-            for (int i = 0; i < 4; i++)
+            centerVect.X -= 200;
+
+            for (int i = 0; i < 5; i++)
             {
                 spriteBatch.Draw(buttonBG, centerVect + new Vector2(-300, 380 + (i * 64)), new Rectangle(0, 0, 96, 96), Color.White * TransitionAlpha, 0f, Vector2.Zero, 0.7f, SpriteEffects.None, 1);
+                spriteBatch.Draw(minions[i], centerVect + new Vector2(-263, 415 + (i * 64)) + new Vector2(3,3), new Rectangle(0, 0, 64, 64), Color.Black * 0.4f* TransitionAlpha, 0f, new Vector2(32, 32), 0.7f, SpriteEffects.None, 1);
                 spriteBatch.Draw(minions[i], centerVect + new Vector2(-263, 415 + (i * 64)), new Rectangle(0, 0, 64, 64), Color.White * TransitionAlpha, 0f, new Vector2(32, 32), 0.7f, SpriteEffects.None, 1);
             }
 
@@ -149,18 +153,22 @@ namespace YouAreTheVillain
                                    Vector2.Zero, 1f, SpriteEffects.None, 1);
             spriteBatch.DrawString(ScreenManager.Font, "Patroller", centerVect + new Vector2(-220, 380+64), Color.Magenta * TransitionAlpha, 0f,
                                    Vector2.Zero, 1f, SpriteEffects.None, 1);
-            spriteBatch.DrawString(ScreenManager.Font, "Sorceress", centerVect + new Vector2(-220, 380+128), Color.Magenta * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "Fire Sorceress", centerVect + new Vector2(-220, 380+128), Color.Magenta * TransitionAlpha, 0f,
                                   Vector2.Zero, 1f, SpriteEffects.None, 1);
-            spriteBatch.DrawString(ScreenManager.Font, "Eyeball", centerVect + new Vector2(-220, 380+192), Color.Magenta * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "Frost Sorceress", centerVect + new Vector2(-220, 380 + 192), Color.Magenta * TransitionAlpha, 0f,
+                                  Vector2.Zero, 1f, SpriteEffects.None, 1);
+            spriteBatch.DrawString(ScreenManager.Font, "Eyeball", centerVect + new Vector2(-220, 380+256), Color.Magenta * TransitionAlpha, 0f,
                                    Vector2.Zero, 1f, SpriteEffects.None, 1);
 
-            spriteBatch.DrawString(ScreenManager.Font, "Runs and falls off of platforms", centerVect + new Vector2(-220, 405), Color.White * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "Runs and falls off of platforms", centerVect + new Vector2(-220, 405), Color.LightGray * TransitionAlpha, 0f,
                                    Vector2.Zero, 1f, SpriteEffects.None, 1);
-            spriteBatch.DrawString(ScreenManager.Font, "Walks left and right sticking to a platform", centerVect + new Vector2(-220, 405 + 64), Color.White * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "Walks left and right sticking to a platform", centerVect + new Vector2(-220, 405 + 64), Color.LightGray * TransitionAlpha, 0f,
                                    Vector2.Zero, 1f, SpriteEffects.None, 1);
-            spriteBatch.DrawString(ScreenManager.Font, "Patrols and casts fireballs", centerVect + new Vector2(-220, 405 + 128), Color.White * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "Patrols and casts fireballs", centerVect + new Vector2(-220, 405 + 128), Color.LightGray * TransitionAlpha, 0f,
                                   Vector2.Zero, 1f, SpriteEffects.None, 1);
-            spriteBatch.DrawString(ScreenManager.Font, "Flys directly left. Can fly through platforms.", centerVect + new Vector2(-220, 405 + 192), Color.White * TransitionAlpha, 0f,
+            spriteBatch.DrawString(ScreenManager.Font, "Patrols and casts frost balls which restrict the heros movement", centerVect + new Vector2(-220, 405 + 192), Color.LightGray * TransitionAlpha, 0f,
+                                  Vector2.Zero, 1f, SpriteEffects.None, 1);
+            spriteBatch.DrawString(ScreenManager.Font, "Flys directly left. Can fly through platforms.", centerVect + new Vector2(-220, 405 + 256), Color.LightGray * TransitionAlpha, 0f,
                                    Vector2.Zero, 1f, SpriteEffects.None, 1);
 
             spriteBatch.End();

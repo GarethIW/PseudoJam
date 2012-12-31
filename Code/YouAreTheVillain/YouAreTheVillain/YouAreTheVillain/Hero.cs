@@ -25,6 +25,8 @@ namespace YouAreTheVillain
         public int MaxHP = 6;
         public float painAlpha = 0f;
 
+        public double frozenTime = 0;
+
         public bool ReachedPrincess = false;
 
         public double SpawnTime;
@@ -35,6 +37,7 @@ namespace YouAreTheVillain
         int animFrame = 1;
         int numFrames = 9;
         bool onGround = true;
+        
 
         Vector2 SpawnPoint;
         Vector2 Gravity = new Vector2(0, 0.5f);
@@ -98,6 +101,8 @@ namespace YouAreTheVillain
                 SpawnPoint = chosenSpawn;
                 Position = SpawnPoint;
                 spawnAlpha = 0f;
+                frozenTime = 0;
+                numSwords = 3;
             }
         }
 
@@ -146,7 +151,13 @@ namespace YouAreTheVillain
             JumpsCheck();
             Combat();
 
-            Velocity = Vector2.Clamp(Velocity, new Vector2(-3f, -15), new Vector2(3f, 15));
+            if (frozenTime > 0) frozenTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if(frozenTime<=0)
+                Velocity = Vector2.Clamp(Velocity, new Vector2(-3f, -15), new Vector2(3f, 15));
+            else
+                Velocity = Vector2.Clamp(Velocity, new Vector2(-1.5f, -15), new Vector2(1.5f, 15));
+
            
 
             if (Position.Y > GameManager.Map.Height*GameManager.Map.TileHeight)
@@ -164,6 +175,10 @@ namespace YouAreTheVillain
             if (HP <= 0)
             {
                 spriteBatch.Draw(spriteSheet, (Position + new Vector2(0,5)) - GameManager.Camera.Position, new Rectangle(10 * (int)frameSize.X, 0, (int)frameSize.X, (int)frameSize.Y), Color.White, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                if (painAlpha > 0f)
+                {
+                    spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(10 * (int)frameSize.X, 65, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                }
                 return;
             }
 
@@ -180,6 +195,10 @@ namespace YouAreTheVillain
                 {
                     spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(animFrame * (int)frameSize.X, 65, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 }
+                if (frozenTime > 0)
+                {
+                    spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(animFrame * (int)frameSize.X, 65, (int)frameSize.X, (int)frameSize.Y), new Color(200,200,255) * 0.8f, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                }
             }
             else
             {
@@ -187,6 +206,10 @@ namespace YouAreTheVillain
                 if (painAlpha > 0f)
                 {
                     spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(0 * (int)frameSize.X, 65, (int)frameSize.X, (int)frameSize.Y), Color.White * painAlpha, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
+                }
+                if (frozenTime > 0)
+                {
+                    spriteBatch.Draw(spriteSheet, (Position + new Vector2(0, 6)) - GameManager.Camera.Position, new Rectangle(0 * (int)frameSize.X, 65, (int)frameSize.X, (int)frameSize.Y), new Color(200, 200, 255) * 0.8f, 0f, frameSize / 2, 1f, SpriteEffects.None, 1);
                 }
             }
         }
@@ -212,7 +235,7 @@ namespace YouAreTheVillain
                     }
                     else
                     {
-                        if (painAlpha <= 0f && m.spawnAlpha>=1f)
+                        if (painAlpha <= 0f && m.spawnAlpha>=1f && !(m.Type==2||m.Type==3))
                         {
                             HP -= 1;
                             painAlpha = 1f;
