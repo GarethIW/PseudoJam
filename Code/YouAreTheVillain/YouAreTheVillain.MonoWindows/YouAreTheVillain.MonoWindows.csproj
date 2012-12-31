@@ -111,6 +111,22 @@
       <Link>YouAreTheVillainContent\Princess.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\SFX\Crush.xnb">
+      <Link>YouAreTheVillainContent\SFX\Crush.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\SFX\Fireball.xnb">
+      <Link>YouAreTheVillainContent\SFX\Fireball.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\SFX\HeroHurt.xnb">
+      <Link>YouAreTheVillainContent\SFX\HeroHurt.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\SFX\Jump.xnb">
+      <Link>YouAreTheVillainContent\SFX\Jump.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +141,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\AudioController.cs">
+      <Link>AudioController.cs</Link>
+    </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\ButtonManager.cs">
       <Link>ButtonManager.cs</Link>
     </Compile>
@@ -140,6 +159,9 @@
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\MinionManager.cs">
       <Link>MinionManager.cs</Link>
     </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\ParallaxManager.cs">
+      <Link>ParallaxManager.cs</Link>
+    </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Program.cs">
       <Link>Program.cs</Link>
     </Compile>
@@ -154,6 +176,9 @@
     </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\ScreenManager\ScreenManager.cs">
       <Link>ScreenManager\ScreenManager.cs</Link>
+    </Compile>
+    <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\AboutScreen.cs">
+      <Link>Screens\AboutScreen.cs</Link>
     </Compile>
     <Compile Include="..\YouAreTheVillain\YouAreTheVillain\Screens\BackgroundScreen.cs">
       <Link>Screens\BackgroundScreen.cs</Link>

@@ -38,11 +38,13 @@ namespace YouAreTheVillain
         MinionManager gameMinionManager;
         ButtonManager gameButtonManager;
         ProjectileManager gameProjectileManager;
+        ParallaxManager gameParallaxManager;
 
         Vector2 HeartsPos = new Vector2(50, 50);
         Vector2 floatingHeartPos = new Vector2(0, -100);
 
-        
+        double finishGameTimer = 0;
+        bool shownFinishScreen = false;
 
         Texture2D texHearts;
         Texture2D texArrow;
@@ -106,6 +108,13 @@ namespace YouAreTheVillain
             gameButtonManager.LoadContent(content);
             GameManager.ButtonManager = gameButtonManager;
 
+            gameParallaxManager = new ParallaxManager(ScreenManager.GraphicsDevice.Viewport);
+            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/sky"), Vector2.Zero, 0f));
+            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds1"), new Vector2(0,50), 0.1f));
+            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/clouds2"), new Vector2(0, 100), 0.3f));
+            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains1"), new Vector2(0, 200), 0.5f));
+            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains2"), new Vector2(0, 400), 0.6f));
+            //gameParallaxManager.Layers.Add(new ParallaxLayer(content.Load<Texture2D>("background/mountains3"), new Vector2(0, 500), 0.7f));
 
             // Princess
             var layer = GameManager.Map.Layers.Where(l => l.Name == "Princess").First();
@@ -151,6 +160,18 @@ namespace YouAreTheVillain
                 gameHero.Update(gameTime);
                 gameMinionManager.Update(gameTime);
                 gameProjectileManager.Update(gameTime);
+
+                if (gameHero.HP <= 0 || gameHero.ReachedPrincess)
+                {
+                    finishGameTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+                    if (finishGameTimer >= 3000 && !shownFinishScreen)
+                    {
+                        shownFinishScreen = true;
+                        PauseBackgroundScreen pauseBG = new PauseBackgroundScreen();
+                        ScreenManager.AddScreen(pauseBG, ControllingPlayer);
+                        ScreenManager.AddScreen(new PauseMenuScreen(pauseBG), ControllingPlayer);
+                    }
+                }
             }
 
             floatingHeartPos -= new Vector2(0, 1f);
@@ -159,6 +180,8 @@ namespace YouAreTheVillain
                 floatingHeartPos = HeartsPos + new Vector2((40 * (gameHero.HP)), 0);
 
             gameButtonManager.Update(gameTime);
+
+            
         }
 
 
@@ -307,19 +330,23 @@ namespace YouAreTheVillain
             gameMap.DrawLayer(spriteBatch, "FG", gameCamera);
 
             gameHero.Draw(spriteBatch);
+            gameProjectileManager.Draw(spriteBatch);
             gameMinionManager.Draw(spriteBatch);
 
+            spriteBatch.Draw(texPrincess, GameManager.princessPosition - gameCamera.Position, null, Color.White, 0f, new Vector2(texPrincess.Width, texPrincess.Height) / 2, 1f, SpriteEffects.None, 1f);
+
+            // HUD below this line ////////////////////////////////
             if (gameHero.SpawnTime > 0)
             {
-                spriteBatch.DrawString(gameFont, "Hero spawning in " + (int)(gameHero.SpawnTime / 1000), new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 100), Color.White, 0f, gameFont.MeasureString("Hero spawning in " + (int)(gameHero.SpawnTime / 1000)) / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "Hero spawning in " + (int)(gameHero.SpawnTime / 1000), new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150), Color.White, 0f, gameFont.MeasureString("Hero spawning in " + (int)(gameHero.SpawnTime / 1000)) / 2, 1f, SpriteEffects.None, 1);
             }
             if (gameHero.HP <= 0)
             {
-                spriteBatch.DrawString(gameFont, "Congratulations\nYou defeated the Hero", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 100), Color.White, 0f, gameFont.MeasureString("Congratulations\nYou defeated the Hero") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "Congratulations\nYou defeated the Hero", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150), Color.White, 0f, gameFont.MeasureString("Congratulations\nYou defeated the Hero") / 2, 1f, SpriteEffects.None, 1);
             }
             if (gameHero.ReachedPrincess)
             {
-                spriteBatch.DrawString(gameFont, "Oh No\nThe Hero saved the Princess", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 100), Color.White, 0f, gameFont.MeasureString("Oh No\nThe Hero saved the Princess") / 2, 1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(gameFont, "Oh No\nThe Hero saved the Princess", new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2, 150), Color.White, 0f, gameFont.MeasureString("Oh No\nThe Hero saved the Princess") / 2, 1f, SpriteEffects.None, 1);
             }
 
             if (gameHero.Position.X < gameCamera.Position.X)
@@ -331,10 +358,7 @@ namespace YouAreTheVillain
                 spriteBatch.Draw(texArrow, new Vector2(gameCamera.Width - 100, MathHelper.Clamp(gameHero.Position.Y - gameCamera.Position.Y, 100, gameCamera.Height)), null, Color.White, 0f, new Vector2(texArrow.Width, texArrow.Height) / 2, 1f, SpriteEffects.None, 1);
             }
 
-            spriteBatch.Draw(texPrincess, GameManager.princessPosition - gameCamera.Position, null, Color.White, 0f, new Vector2(texPrincess.Width, texPrincess.Height) / 2, 1f, SpriteEffects.None, 1f);
-
-            gameProjectileManager.Draw(spriteBatch);
-
+            
             spriteBatch.Draw(texHearts, floatingHeartPos, new Rectangle(64, 0, 32, 32), Color.White);
 
             for (int i = 0; i < gameHero.MaxHP; i++)
