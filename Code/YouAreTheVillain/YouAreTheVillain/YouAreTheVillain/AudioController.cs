@@ -20,6 +20,12 @@ namespace YouAreTheVillain
             SFX.Add("fireball", content.Load<SoundEffect>("sfx/fireball"));
             SFX.Add("herohurt", content.Load<SoundEffect>("sfx/herohurt"));
             SFX.Add("crush", content.Load<SoundEffect>("sfx/crush"));
+            SFX.Add("fall", content.Load<SoundEffect>("sfx/fall"));
+            SFX.Add("minionswordhit", content.Load<SoundEffect>("sfx/minionswordhit"));
+            SFX.Add("swordstuck", content.Load<SoundEffect>("sfx/swordstuck"));
+            SFX.Add("swordthrow", content.Load<SoundEffect>("sfx/swordthrow"));
+            SFX.Add("win", content.Load<SoundEffect>("sfx/win"));
+            SFX.Add("lose", content.Load<SoundEffect>("sfx/lose"));
         }
 
         public static void PlaySFX(string key)
