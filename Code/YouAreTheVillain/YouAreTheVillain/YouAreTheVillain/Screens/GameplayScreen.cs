@@ -404,7 +404,7 @@ namespace YouAreTheVillain
             for (int i = 0; i < gameHero.numSwords; i++)
             {
                 
-                spriteBatch.Draw(gameProjectileManager.spriteSheet, HeartsPos + new Vector2(300,15) + new Vector2(i * 30, 0), new Rectangle(0, 0, 64, 64), Color.White, MathHelper.PiOver2, new Vector2(32,32), 1f, SpriteEffects.None, 1);
+                spriteBatch.Draw(gameProjectileManager.spriteSheet, HeartsPos + new Vector2((gameHero.MaxHP*40)+50,15) + new Vector2(i * 30, 0), new Rectangle(0, 0, 64, 64), Color.White, MathHelper.PiOver2, new Vector2(32,32), 1f, SpriteEffects.None, 1);
                 
             }
 

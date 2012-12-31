@@ -36,9 +36,9 @@ namespace YouAreTheVillain
         {
             MenuEntry resumeGameMenuEntry;
             // Create our menu entries.
-            if(GameManager.Hero.HP<=0)
+            if(GameManager.Hero.ReachedPrincess)
                 resumeGameMenuEntry = new MenuEntry("Try Again");
-            else if (GameManager.Hero.ReachedPrincess)
+            else if (GameManager.Hero.HP<=0)
             {
                 if(GameManager.Level<2)
                     resumeGameMenuEntry = new MenuEntry("Next Level");
@@ -77,7 +77,9 @@ namespace YouAreTheVillain
         /// </summary>
         void ResumeGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            if (GameManager.Hero.ReachedPrincess && GameManager.Level<2) GameManager.Level++;
+            if (GameManager.Hero.HP<=0 && GameManager.Level<2) GameManager.Level++;
+            else
+                if (GameManager.Hero.HP <= 0 && GameManager.Level == 2) GameManager.Level = 0;
 
             if (GameManager.Hero.HP <= 0 || GameManager.Hero.ReachedPrincess)
             {

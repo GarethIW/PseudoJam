@@ -67,7 +67,7 @@ namespace YouAreTheVillain
         /// </summary>
         void CampaignGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            GameManager.Level = 1;
+            GameManager.Level = 0;
             LoadingScreen.Load(ScreenManager, false, e.PlayerIndex,
                                new GameplayScreen());
         }
