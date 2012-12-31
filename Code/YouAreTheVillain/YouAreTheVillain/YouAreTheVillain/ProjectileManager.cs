@@ -89,7 +89,13 @@ namespace YouAreTheVillain
                         if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                         {
                             p.Active = false;
-                            if(p.Type==0) p.StuckInWall = true;
+                            
+                            if (p.Type == 0)
+                            {
+                                if (!p.StuckInWall) AudioController.PlaySFX("swordstuck", 0f);
+                                p.StuckInWall = true;
+                            }
+                            
                         }
                     }
 
@@ -106,6 +112,7 @@ namespace YouAreTheVillain
                                 {
                                     m.Impaled = true;
                                     p.Impaling = true;
+                                    AudioController.PlaySFX("minionswordhit", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
                                 }
                             }
                         }

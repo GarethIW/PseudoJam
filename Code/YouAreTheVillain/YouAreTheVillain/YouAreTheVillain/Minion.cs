@@ -122,7 +122,7 @@ namespace YouAreTheVillain
             if (Type == 2 || Type==3)
             {
                 projectileTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-                if (projectileTime > 500)
+                if (projectileTime > 500 * (Type-1))
                 {
                     if (MinionManager.randomNumber.Next(10) == 1)
                     {
