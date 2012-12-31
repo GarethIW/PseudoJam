@@ -225,7 +225,7 @@
   </object>
   <object type="Full" x="6376" y="755" width="37" height="60">
    <properties>
-    <property name="MustJump" value="False"/>
+    <property name="MustJump" value="True"/>
    </properties>
   </object>
   <object type="Half" x="6568" y="689" width="37" height="60">
@@ -235,7 +235,7 @@
   </object>
   <object type="Half" x="6646" y="818" width="37" height="60">
    <properties>
-    <property name="MustJump" value="False"/>
+    <property name="MustJump" value="True"/>
    </properties>
   </object>
   <object type="Half" x="6766" y="757" width="37" height="60">
@@ -250,7 +250,7 @@
   </object>
   <object type="Full" x="6955" y="691" width="37" height="60">
    <properties>
-    <property name="MustJump" value="False"/>
+    <property name="MustJump" value="True"/>
    </properties>
   </object>
   <object type="Half" x="7153" y="758" width="37" height="60">

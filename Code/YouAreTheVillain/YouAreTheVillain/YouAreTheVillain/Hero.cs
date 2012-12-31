@@ -76,6 +76,9 @@ namespace YouAreTheVillain
                 spawnAlpha = 0f;
                 SpawnTime = 4000;
             }
+
+            MaxHP = 6 + (GameManager.Level * 2);
+            HP = MaxHP;
         }
 
         public void Respawn()
@@ -148,7 +151,7 @@ namespace YouAreTheVillain
             if (swordRefreshTime <= 0)
             {
                 if (numSwords < 3) numSwords++;
-                swordRefreshTime = 7000;
+                swordRefreshTime = 5000;
             }
 
             JumpsCheck();
