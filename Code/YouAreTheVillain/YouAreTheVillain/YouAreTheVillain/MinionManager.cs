@@ -10,7 +10,7 @@ namespace YouAreTheVillain
 {
     public class MinionManager
     {
-        const int MAX_MINIONS = 50;
+        const int MAX_MINIONS = 500;
 
         public static Random randomNumber = new Random();
         
@@ -32,15 +32,19 @@ namespace YouAreTheVillain
         public void LoadContent(ContentManager content)
         {
             SpriteSheets.Add(content.Load<Texture2D>("minion1"));
+            SpriteSheets.Add(content.Load<Texture2D>("minion2"));
+            SpriteSheets.Add(content.Load<Texture2D>("minion3"));
+            SpriteSheets.Add(content.Load<Texture2D>("minion4"));
+            SpriteSheets.Add(content.Load<Texture2D>("minion5"));
         }
 
-        public void Add(Vector2 loc)
+        public void Add(Vector2 loc, int type)
         {
             foreach (Minion m in Minions)
             {
                 if (!m.Active)
                 {
-                    m.Spawn(loc);
+                    m.Spawn(loc, type);
                     break;
                 }
             }

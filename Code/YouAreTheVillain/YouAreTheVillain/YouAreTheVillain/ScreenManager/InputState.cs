@@ -137,7 +137,7 @@ namespace YouAreTheVillain
             }
             else
             {
-                if (mouseHoldCount > 0 && mouseHoldCount < 30) MouseLeftClick = true;
+                if (mouseHoldCount > 0 && mouseHoldCount < 10) MouseLeftClick = true;
                 mouseHoldCount = 0;
             }
 
