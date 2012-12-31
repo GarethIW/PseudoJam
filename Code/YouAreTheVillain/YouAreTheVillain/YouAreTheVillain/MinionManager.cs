@@ -35,6 +35,7 @@ namespace YouAreTheVillain
             SpriteSheets.Add(content.Load<Texture2D>("minion2"));
             SpriteSheets.Add(content.Load<Texture2D>("minion3"));
             SpriteSheets.Add(content.Load<Texture2D>("minion4"));
+            SpriteSheets.Add(content.Load<Texture2D>("minion5"));
         }
 
         public void Add(Vector2 loc, int type)

@@ -119,7 +119,7 @@ namespace YouAreTheVillain
                 return;
             }
 
-            if (Type == 2)
+            if (Type == 2 || Type==3)
             {
                 projectileTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (projectileTime > 500)
@@ -127,7 +127,7 @@ namespace YouAreTheVillain
                     if (MinionManager.randomNumber.Next(10) == 1)
                     {
                         projectileTime = 0;
-                        GameManager.ProjectileManager.Add(Position + (Direction * 20), Direction * 10, false, 1);
+                        GameManager.ProjectileManager.Add(Position + (Direction * 20), Direction * 10, false, Type-1);
 
                         if(Position.X>GameManager.Camera.Position.X && Position.X<GameManager.Camera.Position.X+GameManager.Camera.Width)
                             AudioController.PlaySFX("fireball", ((float)AudioController.randomNumber.NextDouble() * 0.5f) + 0.25f, 0.5f);
@@ -173,7 +173,7 @@ namespace YouAreTheVillain
 
             bool changedir = false;
 
-            if (Type == 3)
+            if (Type == 4)
             {
                 Position.X += Velocity.X;
                 Velocity += 0.5f * Direction;
@@ -249,7 +249,7 @@ namespace YouAreTheVillain
 
             }
 
-            if (Type == 1 || Type==2)
+            if (Type == 1 || Type==2 || Type==3)
             {
                 Point tilePos = new Point((int)((Position.X + (Direction.X * ((frameSize.X / 2)))) / GameManager.Map.TileWidth), (int)((Position.Y + (((frameSize.Y / 2)+5))) / GameManager.Map.TileHeight));
                 if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) && tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
