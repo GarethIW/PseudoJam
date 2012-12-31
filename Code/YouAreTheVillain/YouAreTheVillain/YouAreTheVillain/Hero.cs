@@ -37,7 +37,8 @@ namespace YouAreTheVillain
         int animFrame = 1;
         int numFrames = 9;
         bool onGround = true;
-        
+
+        bool winSoundPlayed = false;
 
         Vector2 SpawnPoint;
         Vector2 Gravity = new Vector2(0, 0.5f);
@@ -127,6 +128,8 @@ namespace YouAreTheVillain
             if (HP <= 0)
             {
                 Velocity.X = 0;
+
+                if (!winSoundPlayed) { AudioController.PlaySFX("win", 0.8f, 1f); winSoundPlayed = true; }
                 return;
             }
 
@@ -166,7 +169,7 @@ namespace YouAreTheVillain
                 Respawn();
                 HP -= 1;
                 painAlpha = 1f;
-                AudioController.PlaySFX("herohurt", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
+                AudioController.PlaySFX("fall", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
             }
         }
 
@@ -293,6 +296,8 @@ namespace YouAreTheVillain
                             swordRefreshTime += 3000;
                             numSwords--;
                             GameManager.ProjectileManager.Add(Position + new Vector2(25, 0), new Vector2(10, 0), true, 0);
+                            if (Position.X > GameManager.Camera.Position.X && Position.X < GameManager.Camera.Position.X + GameManager.Camera.Width)
+                                AudioController.PlaySFX("swordthrow", ((float)AudioController.randomNumber.NextDouble() * 0.5f) + 0.25f, 0.5f);
                         }
                     }
 
@@ -395,6 +400,7 @@ namespace YouAreTheVillain
             {
                 collidedx = true;
                 ReachedPrincess = true;
+                AudioController.PlaySFX("lose");
             }
 
             if (!collidedx)
