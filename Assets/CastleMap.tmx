@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="200" height="15" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="Castle-Tiles" tilewidth="64" tileheight="64">
+  <image source="Castle-Tiles.png" width="192" height="512"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="200" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztWe1u2zAMdNr0Yz+yFWj7/q/aCSiBw42kjpJsF0MOEBLHFkVSd5SsPG3b9nRv5fZrG0fP9muxVXx5EePr+XJ2/u/t/LaCjx5edrStjq/EnvmSxdDT0mqNqT7ctV3LKX5yro/g6ZnwNGK5WB37dfPzihobnUPV13ca92z+7cHnap2K+ltOLWeWrxFeXP62h+/2G9qf7/sf8OzbgP0IZusGY6Evj3CffTIgTzgn2ZhVZDbRl2weZ9dZ9iFa/87m+UhTc2ExqzVGmbcMl6KPvfGM3x63meOfTv8r+PMs+NPQcoa+Rz42X143X2c9VPOM87hqLVd9mF1bjtRcs63OM8eo5FXNGfPWrivaMC2xjUd4xvg9ygesiaM2ZmvGSpsrfanYwjqzoo5X7Kn7JNPFHvNl8Gowo/GYOWc1psJD1qy3p7sW7O0FJSfVfdb/qg91v3cN+ozuGXHN31MfPVy22Ocej7z1oWojw0f/kSXw4mjzE73TeMjmMItjtJ+HSq4VPo+cqe9R+7wcRfudjIsK8P22tZF4rLaqe7wM2fvHUTCujOxzDaN1YKZ+zAD1sQqVOp+tz3yPc4TvxDZnPIfZmQ3b4ro4un83bc3waBZeXqt7Ia41K/SBuG3/nrFhXYrma7RfD1wT8b1yRB/eGWKDonXjrZ2DIH/tXsZL1EamDwU3sFPJLWoKv/fWi5Vnu+gLzoPVKByrV7fYL84lX6+Iw3sXU2rSaL8IzCevzdiL+MianN33eGPj+KN54rNN1QfkjqrJ9qyXj0hvPR566+g7ffL3zK9ovfCulXlF/3mdVvBGnyqisdiOoo3WeG2J5pDXnax/7zklV6wxz6aiT+V/suh+5IOij8x/7IM2+Lu3j8jsZfq4OTaimJRrjoN9jGJU4cWiAMdCn5iDI+e32RzO2ov04umw4n9PnzP75ihu5oq3L67kNtKHx8nMXm/9yP77mtUH++jdi2qwp39vvVL6Rb6ubnvr46hxjtBH7/efoo9KTHvoQ83jzL3V+vgC4zAjlA==
+  </data>
+ </layer>
+</map>
