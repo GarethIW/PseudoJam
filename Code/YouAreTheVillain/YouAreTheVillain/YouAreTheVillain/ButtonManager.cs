@@ -49,7 +49,7 @@ namespace YouAreTheVillain
 
         public void Initialize()
         {
-            Buttons.Add(new Button(0, 1000, Keys.D1));
+            Buttons.Add(new Button(0, 2000, Keys.D1));
             Buttons.Add(new Button(1, 3000, Keys.D2));
             Buttons.Add(new Button(2, 5000, Keys.D3));
             Buttons.Add(new Button(3, 8000, Keys.D4));
