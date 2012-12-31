@@ -34,8 +34,22 @@ namespace YouAreTheVillain
 
         public override void LoadContent()
         {
+            MenuEntry resumeGameMenuEntry;
             // Create our menu entries.
-            MenuEntry resumeGameMenuEntry = new MenuEntry("Resume");
+            if(GameManager.Hero.ReachedPrincess)
+                resumeGameMenuEntry = new MenuEntry("Try Again");
+            else if (GameManager.Hero.HP<=0)
+            {
+                if(GameManager.Level<2)
+                    resumeGameMenuEntry = new MenuEntry("Next Level");
+                else
+                    resumeGameMenuEntry = new MenuEntry("Start Again");
+            }
+            else
+                resumeGameMenuEntry = new MenuEntry("Resume");
+
+
+
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit to Title");
 
@@ -63,8 +77,20 @@ namespace YouAreTheVillain
         /// </summary>
         void ResumeGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            BGScreen.ExitScreen();
-            ExitScreen();
+            if (GameManager.Hero.HP<=0 && GameManager.Level<2) GameManager.Level++;
+            else
+                if (GameManager.Hero.HP <= 0 && GameManager.Level == 2) GameManager.Level = 0;
+
+            if (GameManager.Hero.HP <= 0 || GameManager.Hero.ReachedPrincess)
+            {
+                LoadingScreen.Load(ScreenManager, false, e.PlayerIndex,
+                               new GameplayScreen());
+            }
+            else
+            {
+                BGScreen.ExitScreen();
+                ExitScreen();
+            }
         }
 
         /// <summary>

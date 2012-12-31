@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="150" height="15" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="Dirt-Tiles" tilewidth="64" tileheight="64">
+  <image source="Dirt-Tiles.png" width="192" height="512"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="150" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzVWQlywjAMNLQcPeh9/P+nxTPsVF0kS3JMQnfGQzBKJMurI2ZTStksPPbBcVd+sQvIlIB878is65r868mx3b1rX4IrUsbiwbWj8rS1do6BpfZhS3bfChv3ity7kH0vOjhGL8UPlvW4sgvIjMDHhZ/PfInky2vg1Za+Z3kVWVuLIxF+RLm0JFbHsRbj6TTWiXFjPBs+iK5/7twV5RXs7+GVXBv4oM3NyZG65zfimvfe48Dz6d4DyWO+wlqbnM/uzxTMyS22m2sF8+zTuP4vAIfk2jl2JLS+eyT/vb0eyStP36j3BsuXbIcn83L6bMXuXKg2PBrz1SZtzyqverjy1mOggtY74yVyuMatkfV0lM3Xlrfq2sFp7qGlX8Arab+sjx6yfQDw4oucYfS7AHJ0Dw964sDz64dxfQlw3yvtmpIbwS2uMavy18+sg3X18Ao62N7743goeq7VoNmW9cFcPS3WzP6ua1iipsmYGplfK8AtydusDi9Pc4xa/q3g9+6p4JiU7xpR9ORVDXIPI7UgUzMyQCzO0WdEdXg+lr6ArHdmU4K/AZn45j4o67+qa5/QZwGxJPt+jzPst7kQiaPXgfrgG8sfnIdQHzO8atWl3n6jp9ZZunps4L4CNqFOWJyFn3o4HTkD/DqO73Lec2DfDs79QKtPi8jLuNfs5veAKK8Ojs2WX7UaF12bdr91T4ZjXLuQ76yzGznP+rUzCOhETrF8oJ2dWHHF/bH8zvmebVyVc12R3DPlLDCTr+ocn8euS7sOcN+ZOe/S1id5rvX/1jyeJ/cz2xfBnhZkfZK+zZ7NMlq80nS0+BvNPXPyyvvPo0LGp2cH5AAZ4z3+t2A9L/M/VeSe+jtqlserH/L2GRQ=
+  </data>
+ </layer>
+</map>
