@@ -40,7 +40,7 @@ namespace YouAreTheVillain
 
         bool winSoundPlayed = false;
 
-        Vector2 SpawnPoint;
+        public Vector2 SpawnPoint;
         Vector2 Gravity = new Vector2(0, 0.5f);
 
         Vector2 frameSize = new Vector2(64, 64);
@@ -57,7 +57,7 @@ namespace YouAreTheVillain
 
         public void Initialize() 
         {
-            Vector2 chosenSpawn = Vector2.Zero;
+            Vector2 chosenSpawn = new Vector2(1000,0);
             // Try to find a spawn point
             var layer = GameManager.Map.Layers.Where(l => l.Name == "Spawn").First();
             if (layer!=null)
@@ -66,13 +66,13 @@ namespace YouAreTheVillain
 
                 foreach (MapObject o in objectlayer.Objects)
                 {
-                    if (chosenSpawn.X < o.Location.Center.X) chosenSpawn = new Vector2(o.Location.Center.X, o.Location.Center.Y);
+                    if (o.Location.Center.X<chosenSpawn.X) chosenSpawn = new Vector2(o.Location.Center.X, o.Location.Center.Y);
                     
                 }
 
                 SpawnPoint = chosenSpawn;
                 Position = SpawnPoint;
-                Position.X = 0;
+                //Position.X = 0;
                 spawnAlpha = 0f;
                 SpawnTime = 4000;
             }
@@ -375,11 +375,34 @@ namespace YouAreTheVillain
                     if (Velocity.Y > 0)
                     {
                         Velocity.Y = 0;
-
+                        
                     }
                     Position.Y -= 1f;
                 }
                
+            }
+
+            // Check up
+            y = -1;
+            for (x = -1; x <= 1; x++)
+            {
+                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2))) + (x * -10)) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2) - 50))) / GameManager.Map.TileHeight));
+
+                if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
+                if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
+
+                if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
+                {
+                    //collidedy = true;
+
+                    if (Velocity.Y < 0)
+                    {
+                        Velocity.Y = -Velocity.Y;
+
+                    }
+                    //Position.Y -= 1f;
+                }
+
             }
 
             for (x = -1; x <= 1; x++)

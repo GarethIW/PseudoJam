@@ -50,6 +50,8 @@ namespace YouAreTheVillain
         Texture2D texArrow;
         Texture2D texPrincess;
 
+        string mapName;
+
         #endregion
 
         #region Initialization
@@ -82,7 +84,21 @@ namespace YouAreTheVillain
             texArrow = content.Load<Texture2D>("arrows");
             texPrincess = content.Load<Texture2D>("princess");
 
-            gameMap = content.Load<Map>("rockmap");
+            switch (GameManager.Level)
+            {
+                case 0:
+                    gameMap = content.Load<Map>("rockmap");
+                    break;
+                case 1:
+                    gameMap = content.Load<Map>("dirtmap");
+                    break;
+                case 2:
+                    gameMap = content.Load<Map>("castlemap");
+                    break;
+                default:
+                    gameMap = content.Load<Map>("rockmap");
+                    break;
+            }
             gameCamera = new Camera(ScreenManager.GraphicsDevice.Viewport, gameMap);
 
             gameMinionManager = new MinionManager();
@@ -224,7 +240,7 @@ namespace YouAreTheVillain
                     gameCamera.Target -= input.DragGesture.Value.Delta;
                 }
 
-                
+                if (input.IsNewKeyPress(Keys.Space, null, out player)) gameHero.Position = gameHero.SpawnPoint;
 
                 if (!gameButtonManager.HandleInput(input))
                 {
