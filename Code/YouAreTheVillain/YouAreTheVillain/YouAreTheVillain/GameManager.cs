@@ -18,5 +18,7 @@ namespace YouAreTheVillain
         public static ProjectileManager ProjectileManager;
 
         public static Vector2 princessPosition;
+
+        public static int Level;
     }
 }
