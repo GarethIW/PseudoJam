@@ -64,6 +64,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AudioController.cs" />
     <Compile Include="ButtonManager.cs" />
     <Compile Include="ProjectileManager.cs" />
     <Compile Include="Minion.cs" />
