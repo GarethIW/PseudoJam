@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="14" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="basictiles" tilewidth="32" tileheight="32">
+  <image source="basictiles.png" width="64" height="32"/>
+ </tileset>
+ <layer name="FG" width="100" height="14">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3XywoAIAhE0ej/P7q9ixKRUeMecNmDCazWAoB/bWdFx93mAADM0K2/R+6g6j1PQ05ar7w5Dy3v+xc5/Tjrr1FZir0r87Gq8+2YlTIfqzrfjll51jgILFFo4BUAAA==
+  </data>
+ </layer>
+ <objectgroup name="Spawn" width="100" height="14">
+  <object x="35" y="280" width="40" height="69"/>
+ </objectgroup>
+ <objectgroup name="Jumps" width="100" height="14">
+  <object type="Full" x="160" y="346" width="29" height="44">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Full" x="549" y="350" width="24" height="33">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Half" x="762" y="345" width="29" height="39">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Full" x="333" y="219" width="23" height="28">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Full" x="716" y="92" width="19" height="25">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Full" x="1259" y="92" width="19" height="25">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Full" x="954" y="345" width="24" height="33">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Full" x="1018" y="316" width="24" height="33">
+   <properties>
+    <property name="MustJump" value="True"/>
+   </properties>
+  </object>
+  <object type="Full" x="848" y="283" width="19" height="25">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Full" x="1313" y="346" width="19" height="25">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

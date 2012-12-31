@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="14" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="basictiles" tilewidth="32" tileheight="32">
+  <image source="basictiles.png" width="64" height="32"/>
+ </tileset>
+ <layer name="FG" width="100" height="14">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3VQQoAIAhEUe3+h27VKgJTIas/8JbJgJAqIoovrXK61812Enm7moFZM4q8HdgJAAtLKnaq1jmT50ac7OO9awDqI7WS8R+3aWreXLCPF7CPHB2id6404BUAAA==
+  </data>
+ </layer>
+ <objectgroup name="Spawn" width="100" height="14">
+  <object x="35" y="280" width="40" height="69"/>
+ </objectgroup>
+</map>
