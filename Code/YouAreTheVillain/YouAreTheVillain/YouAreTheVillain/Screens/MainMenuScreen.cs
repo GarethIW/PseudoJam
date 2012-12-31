@@ -34,19 +34,19 @@ namespace YouAreTheVillain
         {
             // Create our menu entries.
             MenuEntry campaignGameMenuEntry = new MenuEntry("START GAME");
-            MenuEntry quickGameMenuEntry = new MenuEntry("WAR");
+            MenuEntry aboutGameMenuEntry = new MenuEntry("README DOT TXT");
             MenuEntry optionsMenuEntry = new MenuEntry("OPTIONS");
             MenuEntry exitMenuEntry = new MenuEntry("EXIT GAME");
 
             // Hook up menu event handlers.
             campaignGameMenuEntry.Selected += CampaignGameMenuEntrySelected;
-            quickGameMenuEntry.Selected += QuickGameMenuEntrySelected;
+            aboutGameMenuEntry.Selected += AboutGameMenuEntrySelected;
             optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             exitMenuEntry.Selected += ExitMenuEntrySelected;
 
             // Add entries to the menu.
             MenuEntries.Add(campaignGameMenuEntry);
-            //MenuEntries.Add(quickGameMenuEntry);
+            MenuEntries.Add(aboutGameMenuEntry);
             //MenuEntries.Add(optionsMenuEntry);
             if (!ScreenManager.IsPhone)
             {
@@ -71,10 +71,9 @@ namespace YouAreTheVillain
                                new GameplayScreen());
         }
 
-        void QuickGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        void AboutGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
-                               new GameplayScreen());
+            ScreenManager.AddScreen(new AboutScreen(), e.PlayerIndex);
         }
 
 

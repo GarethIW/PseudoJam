@@ -34,8 +34,9 @@ namespace YouAreTheVillain
 
         public override void LoadContent()
         {
+            
             // Create our menu entries.
-            MenuEntry resumeGameMenuEntry = new MenuEntry("Resume");
+            MenuEntry resumeGameMenuEntry = new MenuEntry(GameManager.Hero.HP<=0||GameManager.Hero.ReachedPrincess?"Play Again":"Resume");
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit to Title");
 
@@ -63,8 +64,16 @@ namespace YouAreTheVillain
         /// </summary>
         void ResumeGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            BGScreen.ExitScreen();
-            ExitScreen();
+            if (GameManager.Hero.HP <= 0 || GameManager.Hero.ReachedPrincess)
+            {
+                LoadingScreen.Load(ScreenManager, false, e.PlayerIndex,
+                               new GameplayScreen());
+            }
+            else
+            {
+                BGScreen.ExitScreen();
+                ExitScreen();
+            }
         }
 
         /// <summary>

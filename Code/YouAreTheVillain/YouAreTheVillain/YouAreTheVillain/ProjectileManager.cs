@@ -93,6 +93,8 @@ namespace YouAreTheVillain
                         }
                     }
 
+                    if (p.Position.X < 0f || p.Position.X > GameManager.Map.Width * GameManager.Map.TileWidth) p.Active = false;
+
                     // do collision checks
                     if (p.OwnedByHero)
                     {
@@ -112,10 +114,11 @@ namespace YouAreTheVillain
                     {
                         if ((GameManager.Hero.Position - p.Position).Length() < 32f)
                         {
-                            if (GameManager.Hero.painAlpha <= 0f && GameManager.Hero.HP>0)
+                            if (GameManager.Hero.painAlpha <= 0f && GameManager.Hero.HP>0 && !GameManager.Hero.ReachedPrincess)
                             {
                                 GameManager.Hero.HP -= 1;
                                 GameManager.Hero.painAlpha = 1f;
+                                AudioController.PlaySFX("herohurt", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
                             }
                         }
                     }

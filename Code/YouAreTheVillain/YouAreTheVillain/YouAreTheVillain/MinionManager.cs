@@ -10,7 +10,7 @@ namespace YouAreTheVillain
 {
     public class MinionManager
     {
-        const int MAX_MINIONS = 50;
+        const int MAX_MINIONS = 500;
 
         public static Random randomNumber = new Random();
         
