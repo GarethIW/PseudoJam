@@ -35,7 +35,7 @@
   </object>
   <object type="Half" x="997" y="693" width="37" height="60">
    <properties>
-    <property name="MustJump" value="False"/>
+    <property name="MustJump" value="True"/>
    </properties>
   </object>
   <object type="Full" x="1316" y="496" width="37" height="60">
@@ -120,12 +120,12 @@
   </object>
   <object type="Full" x="3455" y="241" width="37" height="60">
    <properties>
-    <property name="MustJump" value="False"/>
+    <property name="MustJump" value="True"/>
    </properties>
   </object>
   <object type="Half" x="3557" y="120" width="37" height="60">
    <properties>
-    <property name="MustJump" value="False"/>
+    <property name="MustJump" value="True"/>
    </properties>
   </object>
   <object type="Half" x="3427" y="625" width="37" height="60">
@@ -193,7 +193,7 @@
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Half" x="4898" y="433" width="37" height="60">
+  <object type="Full" x="4898" y="433" width="37" height="60">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
@@ -318,19 +318,19 @@
     <property name="MustJump" value="False"/>
    </properties>
   </object>
-  <object type="Full" x="8484" y="435" width="37" height="60">
+  <object type="Full" x="8504" y="439" width="19" height="59">
    <properties>
-    <property name="MustJump" value="False"/>
+    <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Full" x="8686" y="434" width="37" height="60">
+  <object type="Full" x="8693" y="435" width="23" height="60">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>
   </object>
   <object type="Half" x="8808" y="308" width="37" height="60">
    <properties>
-    <property name="MustJump" value="False"/>
+    <property name="MustJump" value="True"/>
    </properties>
   </object>
   <object type="Half" x="8912" y="813" width="37" height="60">
@@ -374,6 +374,11 @@
    </properties>
   </object>
   <object type="Half" x="7524" y="754" width="37" height="60">
+   <properties>
+    <property name="MustJump" value="False"/>
+   </properties>
+  </object>
+  <object type="Full" x="8164" y="625" width="37" height="60">
    <properties>
     <property name="MustJump" value="False"/>
    </properties>

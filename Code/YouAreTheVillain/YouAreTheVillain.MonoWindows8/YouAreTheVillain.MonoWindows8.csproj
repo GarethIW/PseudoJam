@@ -384,6 +384,10 @@
       <Link>YouAreTheVillainContent\DirtMap.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\YouAreTheVillain\YouAreTheVillain\bin\Windows Phone\Debug\YouAreTheVillainContent\topbar.xnb">
+      <Link>YouAreTheVillainContent\topbar.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="YouAreTheVillain.MonoWindows8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

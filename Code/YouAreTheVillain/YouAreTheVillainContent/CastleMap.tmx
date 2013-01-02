@@ -5,7 +5,7 @@
  </tileset>
  <layer name="FG" width="200" height="15">
   <data encoding="base64" compression="gzip">
-   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
+   H4sIAAAAAAAAC+1Za2/bMAx01nTtPngr0Pb//9VNQAkcbnxLtochBwhJaovi60hJfd627fkxyuPH1sc9kP1aHBVdXpL2Rbpc7f/HuH6syEcNL4vkzKyfsd3TT2zIDMuvR8eJdXhwu+ZT/GRfX5W7Z0HjiPhite33Tfcrcqwbw6yu77Tu1fl3RD5X65Q1X3wqPhN/dfLi9md8+xo/Yfz6ev4B77415FsQWTushbo8wXPWSYB5wj7x1qzCk4m6eHGc7eGsg9X/rs7zzsj6QmzO1phM3DzcijpG60l+a7nNOf6pzMdzzfeEPgPDZ6i7pePQ7XXTeRah6meM46pentVhtrecybkhOxtntjHj16zPOG/ld4UbwiWW8QTvSH538wFrYleG5pN9Qp4l88h5s7Ki+5NqHa/Iy+6ThBcrfcTQajBD6ibmnNSYSh4yZ7U93b0g7yhkfFLdZ/2v/Mju9+7GnO6eEXv+kfyIcNtsnaM80vpDVYaHj/iVJdDsGPGxzjQavBh6dnTnaaj4OpPPnTv1I2qf5iNrv+PlYgZ4vh2jY4/U1hV3uN754yxIrnT2uYJuHZipHzNAfqxCpc57/ZmfsY/wTCwx4xh6dzYsi+tid/8u3JrJo1lofq3uhbjWrOAHYt/+vmPDumTFqzsvAtdEPFd2+KHdIQ5kuC55K/cgnL/RORC54fEjgx3kVHyLnMLvUb9YebeLumAcpEbhWlHdYr3Yl/x7hR3aWSxTk7rzLHA+aWNGnpWPzMnZfY+2Nq7f9RPfbWZ1wNzJcnK8q/nD4luUh1offadP/u7pZfUL7Xcmrqg/9+kM3ugzC2stlpPhxhjcW6wYct/x5kfvZXzFHNNkZviZ+T+Z9dzSIcMPT3+cgzL4u7aP8OR5/NgVGZZNmd9sB+to2ZiFZksGuBbqxDnYub/1Yjgrz+KLxsOK/hE/Z/bNlt2cK9q+uOJbix9aTnryov7h/e9rlh+so/bMqsEa/7V+lZln6bp6HM2Ps9Y5gx/R3/8VflRsOoIfWT/OPFvNj9+GAKhI4C4AAA==
   </data>
  </layer>
  <objectgroup name="Spawn" width="200" height="15">
@@ -276,7 +276,7 @@
     <property name="MustJump" value="True"/>
    </properties>
   </object>
-  <object type="Half" x="7366" y="563" width="37" height="54">
+  <object type="Half" x="7368" y="565" width="65" height="54">
    <properties>
     <property name="MustJump" value="True"/>
    </properties>
