@@ -50,7 +50,7 @@ namespace YouAreTheVillain
             Active = true;
             spawnAlpha = 0f;
             Position = loc;
-            Direction = new Vector2(-1, 0);
+            Direction = new Vector2(-1, type==4?1:0);
             Velocity = Vector2.Zero;
             Type = type;
             squishAmount = 1f;
@@ -175,8 +175,13 @@ namespace YouAreTheVillain
 
             if (Type == 4)
             {
-                Position.X += Velocity.X;
+                Position += Velocity;
                 Velocity += 0.5f * Direction;
+
+                if (Velocity.Y >= 3f) Direction.Y = -1f;
+                if (Velocity.Y <= -3f) Direction.Y = 1f;
+
+
                 return false;
             }
 
@@ -258,7 +263,7 @@ namespace YouAreTheVillain
                     if (tileLayer.Tiles[tilePos.X, tilePos.Y] == null)
                     {
                         Direction = -Direction;
-                        Velocity.X = Direction.X * 6f;
+                        //Velocity.X = Direction.X * 4f;
                         Position.X += Velocity.X;
                     }
                 }
@@ -275,7 +280,7 @@ namespace YouAreTheVillain
             {
                 Direction = -Direction;
                 //Position += Direction * 10f;
-                Velocity.X = Direction.X * 4f;
+                Velocity.X = Direction.X;
                 Position.X += Velocity.X;
             }
 
