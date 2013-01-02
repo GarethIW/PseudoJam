@@ -20,6 +20,8 @@ It will be updated sporadically throughout the 48 hours.
 
 It's been tested on a Windows 7 machine without any pre-reqs, but YMMV!
 
+If the executable doesn't launch, try installing OpenAL: http://connect.creativelabs.com/openal/Downloads/oalinst.zip
+
 
 Code Shizzle
 ------------

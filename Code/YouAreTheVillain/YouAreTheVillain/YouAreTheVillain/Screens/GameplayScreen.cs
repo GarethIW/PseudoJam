@@ -40,7 +40,7 @@ namespace YouAreTheVillain
         ProjectileManager gameProjectileManager;
         ParallaxManager gameParallaxManager;
 
-        Vector2 HeartsPos = new Vector2(50, 50);
+        Vector2 HeartsPos = new Vector2(100, 13);
         Vector2 floatingHeartPos = new Vector2(0, -100);
 
         double finishGameTimer = 0;
@@ -49,6 +49,7 @@ namespace YouAreTheVillain
         Texture2D texHearts;
         Texture2D texArrow;
         Texture2D texPrincess;
+        Texture2D texTopBar;
 
         string mapName;
 
@@ -83,6 +84,7 @@ namespace YouAreTheVillain
             texHearts = content.Load<Texture2D>("hearts");
             texArrow = content.Load<Texture2D>("arrows");
             texPrincess = content.Load<Texture2D>("princess");
+            texTopBar = content.Load<Texture2D>("topbar");
 
             switch (GameManager.Level)
             {
@@ -112,13 +114,14 @@ namespace YouAreTheVillain
             GameManager.MinionManager = gameMinionManager;
             GameManager.ProjectileManager = gameProjectileManager;
 
-            gameHero = new Hero();
-            gameHero.LoadContent(content);
+            gameHero = GameManager.Hero; //new Hero();
             gameHero.Initialize();
+            gameHero.LoadContent(content);
+            
 
             gameCamera.Target = gameHero.Position;
 
-            GameManager.Hero = gameHero;
+            //GameManager.Hero = gameHero;
 
             gameButtonManager = new ButtonManager();
             gameButtonManager.LoadContent(content);
@@ -264,58 +267,62 @@ namespace YouAreTheVillain
 
                             if (type != 4)
                             {
-                                if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
+                                if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                                    tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) || tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
                                 {
-                                    while (!found)
+                                    if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                                     {
-                                        if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
-                                            tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) || tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
+                                        while (!found)
                                         {
-                                            if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
+                                            if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                                                tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) || tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
                                             {
-                                                if (tilePos.Y - 1 >= tileLayer.Tiles.GetLowerBound(1))
+                                                if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                                                 {
-                                                    if (tileLayer.Tiles[tilePos.X, tilePos.Y - 1] == null)
+                                                    if (tilePos.Y - 1 >= tileLayer.Tiles.GetLowerBound(1))
                                                     {
-                                                        gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, (tilePos.Y * 64) - 32), type);
-                                                        gameButtonManager.Buttons[gameButtonManager.SelectedButton].CurrentCoolDown = gameButtonManager.Buttons[gameButtonManager.SelectedButton].CoolDown;
-                                                        found = true;
+                                                        if (tileLayer.Tiles[tilePos.X, tilePos.Y - 1] == null)
+                                                        {
+                                                            gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, (tilePos.Y * 64) - 32), type);
+                                                            gameButtonManager.Buttons[gameButtonManager.SelectedButton].CurrentCoolDown = gameButtonManager.Buttons[gameButtonManager.SelectedButton].CoolDown;
+                                                            found = true;
+                                                        }
+                                                        else tilePos.Y -= 1;
                                                     }
-                                                    else tilePos.Y -= 1;
+                                                    else found = true;
                                                 }
                                                 else found = true;
+
                                             }
                                             else found = true;
-
                                         }
-                                        else found = true;
                                     }
-                                }
-                                else
-                                {
-                                    while (!found)
+                                    else
                                     {
-                                        if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
-                                            tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) || tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
+                                        while (!found)
                                         {
-                                            if (tileLayer.Tiles[tilePos.X, tilePos.Y] == null)
+                                            if (tilePos.X >= tileLayer.Tiles.GetLowerBound(0) || tilePos.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                                                tilePos.Y >= tileLayer.Tiles.GetLowerBound(1) || tilePos.Y <= tileLayer.Tiles.GetUpperBound(1))
                                             {
-                                                if (tilePos.Y+1 <= tileLayer.Tiles.GetUpperBound(1))
+                                                if (tileLayer.Tiles[tilePos.X, tilePos.Y] == null)
                                                 {
-                                                    if (tileLayer.Tiles[tilePos.X, tilePos.Y + 1] != null)
+                                                    if (tilePos.Y + 1 <= tileLayer.Tiles.GetUpperBound(1))
                                                     {
-                                                        gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, ((tilePos.Y+1) * 64) - 32), type);
-                                                        gameButtonManager.Buttons[gameButtonManager.SelectedButton].CurrentCoolDown = gameButtonManager.Buttons[gameButtonManager.SelectedButton].CoolDown;
-                                                        found = true;
+                                                        if (tileLayer.Tiles[tilePos.X, tilePos.Y + 1] != null)
+                                                        {
+                                                            gameMinionManager.Add(new Vector2((tilePos.X * 64) + 32, ((tilePos.Y + 1) * 64) - 32), type);
+                                                            gameButtonManager.Buttons[gameButtonManager.SelectedButton].CurrentCoolDown = gameButtonManager.Buttons[gameButtonManager.SelectedButton].CoolDown;
+                                                            found = true;
+                                                        }
+                                                        else tilePos.Y += 1;
                                                     }
-                                                    else tilePos.Y += 1;
+                                                    else found = true;
                                                 }
                                                 else found = true;
+
                                             }
                                             else found = true;
-
                                         }
-                                        else found = true;
                                     }
                                 }
                             }
@@ -386,11 +393,20 @@ namespace YouAreTheVillain
                 spriteBatch.Draw(texArrow, new Vector2(gameCamera.Width - 100, MathHelper.Clamp(gameHero.Position.Y - gameCamera.Position.Y, 100, gameCamera.Height)), null, Color.White, 0f, new Vector2(texArrow.Width, texArrow.Height) / 2, 1f, SpriteEffects.None, 1);
             }
 
+            // HUD
+            spriteBatch.Draw(texTopBar, Vector2.Zero, new Rectangle(0, 0, 12, 65), Color.White);
+            for(int x=12;x<ScreenManager.GraphicsDevice.Viewport.Width;x+=72)
+                spriteBatch.Draw(texTopBar, new Vector2(x,0), new Rectangle(12, 0, 72, 65), Color.White);
+            spriteBatch.Draw(texTopBar, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width-12, 0), new Rectangle(84, 0, 12, 65), Color.White);
+
+            spriteBatch.Draw(texTopBar, new Rectangle(0, 60, (int)(((float)ScreenManager.GraphicsDevice.Viewport.Width / (float)gameHero.XPTNL) * (float)gameHero.XP), 5), new Rectangle(0, 0, 1, 1), Color.Red);
             
             spriteBatch.Draw(texHearts, floatingHeartPos, new Rectangle(64, 0, 32, 32), Color.White);
 
             for (int i = 0; i < gameHero.MaxHP; i++)
             {
+                spriteBatch.Draw(texHearts, HeartsPos + new Vector2(i * 40, 0) + new Vector2(2, 2), new Rectangle(32, 0, 32, 32), Color.Black * 0.4f);
+                
                 if (gameHero.HP >= i + 1)
                 {
                     spriteBatch.Draw(texHearts, HeartsPos + new Vector2(i * 40, 0), new Rectangle(0, 0, 32, 32), Color.White);
@@ -401,12 +417,16 @@ namespace YouAreTheVillain
                 }
             }
 
-            for (int i = 0; i < gameHero.numSwords; i++)
+            for (int i = 0; i < gameHero.MaxSwords; i++)
             {
-                
-                spriteBatch.Draw(gameProjectileManager.spriteSheet, HeartsPos + new Vector2((gameHero.MaxHP*40)+50,15) + new Vector2(i * 30, 0), new Rectangle(0, 0, 64, 64), Color.White, MathHelper.PiOver2, new Vector2(32,32), 1f, SpriteEffects.None, 1);
+                spriteBatch.Draw(texHearts, HeartsPos + new Vector2((gameHero.MaxHP * 40) + 50, 0) + new Vector2(i * 30, 0) + new Vector2(4,2), new Rectangle(96, 0, 32, 32), Color.Black * 0.4f, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
+                if(gameHero.numSwords>=i+1)
+                    spriteBatch.Draw(texHearts, HeartsPos + new Vector2((gameHero.MaxHP * 40) + 50, 0) + new Vector2(i * 30, 0), new Rectangle(96, 0, 32, 32), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
                 
             }
+
+            spriteBatch.DrawString(gameFont, gameHero.Level.ToString(), HeartsPos + new Vector2(-40, 5) + new Vector2(2,2), Color.Black * 0.4f);
+            spriteBatch.DrawString(gameFont, gameHero.Level.ToString(), HeartsPos + new Vector2(-40, 5), Color.White);
 
             gameButtonManager.Draw(spriteBatch);
 

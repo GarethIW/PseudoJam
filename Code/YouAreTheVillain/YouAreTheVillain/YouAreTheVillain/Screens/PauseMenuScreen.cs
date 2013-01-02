@@ -79,10 +79,18 @@ namespace YouAreTheVillain
         {
             if (GameManager.Hero.HP<=0 && GameManager.Level<2) GameManager.Level++;
             else
-                if (GameManager.Hero.HP <= 0 && GameManager.Level == 2) GameManager.Level = 0;
+                if (GameManager.Hero.HP <= 0 && GameManager.Level == 2) { GameManager.Level = 0; }
+
+            
 
             if (GameManager.Hero.HP <= 0 || GameManager.Hero.ReachedPrincess)
             {
+                if (GameManager.Hero.ReachedPrincess)
+                {
+                    GameManager.Level = 0;
+                    GameManager.Hero = new Hero();
+                }
+
                 LoadingScreen.Load(ScreenManager, false, e.PlayerIndex,
                                new GameplayScreen());
             }
