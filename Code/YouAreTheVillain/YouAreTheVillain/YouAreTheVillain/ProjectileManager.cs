@@ -112,7 +112,6 @@ namespace YouAreTheVillain
                                 {
                                     m.Impaled = true;
                                     p.Impaling = true;
-                                    GameManager.Hero.XP += 10;
                                     AudioController.PlaySFX("minionswordhit", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
                                 }
                             }

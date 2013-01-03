@@ -21,13 +21,8 @@ namespace YouAreTheVillain
         public Vector2 Position;
         public Vector2 Velocity = new Vector2(0,0);
 
-        public int HP = 5;
+        public int HP = 6;
         public int MaxHP = 6;
-
-        public int Level = 1;
-        public int XP = 0;
-        public int XPTNL = 0;
-
         public float painAlpha = 0f;
 
         public double frozenTime = 0;
@@ -51,7 +46,6 @@ namespace YouAreTheVillain
         Vector2 frameSize = new Vector2(64, 64);
         Texture2D spriteSheet;
 
-        public int MaxSwords = 3;
         public int numSwords = 3;
         double swordRefreshTime;
         double swordAttackTime;
@@ -59,12 +53,7 @@ namespace YouAreTheVillain
 
 
         public Hero()
-        {
-            MaxHP = 5; // + (GameManager.Level * 2);
-            MaxSwords = 2;         
-
-            XPTNL = CalculateXPTNL(Level);
-        }
+        { }
 
         public void Initialize() 
         {
@@ -88,12 +77,8 @@ namespace YouAreTheVillain
                 SpawnTime = 4000;
             }
 
+            MaxHP = 6 + (GameManager.Level * 2);
             HP = MaxHP;
-            numSwords = MaxSwords;
-            winSoundPlayed = false;
-            frozenTime = 0;
-
-            ReachedPrincess = false;
         }
 
         public void Respawn()
@@ -122,7 +107,6 @@ namespace YouAreTheVillain
                 spawnAlpha = 0f;
                 frozenTime = 0;
                 numSwords = 3;
-                painAlpha = 0;
             }
         }
 
@@ -166,7 +150,7 @@ namespace YouAreTheVillain
 
             if (swordRefreshTime <= 0)
             {
-                if (numSwords < MaxSwords) numSwords++;
+                if (numSwords < 3) numSwords++;
                 swordRefreshTime = 5000;
             }
 
@@ -189,22 +173,6 @@ namespace YouAreTheVillain
                 HP -= 1;
                 painAlpha = 1f;
                 AudioController.PlaySFX("fall", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
-            }
-
-            // Levelling
-            if (XP >= XPTNL)
-            {
-                Level++;
-                MaxHP++;
-                HP++;
-
-                if (Level % 2 == 0) MaxSwords++;
-
-                if (numSwords < MaxSwords) numSwords++;
-
-                XP -= XPTNL;
-                XPTNL = CalculateXPTNL(Level);
-
             }
         }
 
@@ -263,13 +231,12 @@ namespace YouAreTheVillain
             {
                 if (!m.Active || m.Squished || m.Impaled) continue;
                 // Check collision
-                if ((Position - m.Position).Length() < 55)
+                if ((Position - m.Position).Length() < 64)
                 {
                     if ((Position.Y - m.Position.Y) < -40 && Velocity.Y>0f)
                     {
                         // Jumped on top of minion
                         m.Squished = true;
-                        XP += 10;
                         AudioController.PlaySFX("crush", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
                     }
                     else
@@ -285,8 +252,7 @@ namespace YouAreTheVillain
 
                 // Check jump distance
                 if ((m.Position.X - Position.X) > 0 && (m.Position.X - Position.X) < 400 &&
-                   (m.Position.Y - Position.Y) > -10 && (m.Position.Y - Position.Y) < 10  &&
-                   (GameManager.princessPosition - Position).Length()>300 &&
+                   (m.Position.Y - Position.Y) > -10 && (m.Position.Y - Position.Y) < 10 &&
                     onGround)
                 {
                     // Check that there is no pit or obstacle in front
@@ -305,17 +271,7 @@ namespace YouAreTheVillain
                             found = true;
 
 
-                    if (!found) 
-                    {
-                        if (randomNumber.Next(5) == 1)
-                        {
-
-                            Velocity.Y = -11f;
-                            Position.Y += Velocity.Y;
-                            AudioController.PlaySFX("jump", ((float)AudioController.randomNumber.NextDouble() * 0.5f) - 0.25f);
-                            onGround = false;
-                        }
-                    }
+                    if (!found) Velocity.Y = -11f;
                     
                 }
 
@@ -340,8 +296,7 @@ namespace YouAreTheVillain
                         if (numSwords > 0 && swordAttackTime<=0 && m.spawnAlpha>=1f)
                         {
                             swordAttackTime = 1000;
-                            if(swordRefreshTime<=0)
-                                swordRefreshTime += 5000;
+                            swordRefreshTime += 3000;
                             numSwords--;
                             GameManager.ProjectileManager.Add(Position + new Vector2(25, 0), new Vector2(10, 0), true, 0);
                             if (Position.X > GameManager.Camera.Position.X && Position.X < GameManager.Camera.Position.X + GameManager.Camera.Width)
@@ -363,9 +318,7 @@ namespace YouAreTheVillain
             //    return false;
             //}
 
-            if (ReachedPrincess) return false;
-
-           
+            if (ReachedPrincess && onGround) return false;
 
             bool collidedx = false;
             bool collidedy = false;
@@ -374,24 +327,6 @@ namespace YouAreTheVillain
             TileLayer tileLayer = t as TileLayer;
 
             int x, y;
-
-            for (x = -1; x <= 0; x++)
-            {
-                Point tileP = new Point((int)((Position.X + (x * ((frameSize.X / 2))) + (x * -5)) / GameManager.Map.TileWidth), (int)((Position.Y + (((frameSize.Y / 2) + 5))) / GameManager.Map.TileHeight));
-                if (tileP.X >= tileLayer.Tiles.GetLowerBound(0) && tileP.X <= tileLayer.Tiles.GetUpperBound(0) &&
-                    tileP.Y >= tileLayer.Tiles.GetLowerBound(1) && tileP.Y <= tileLayer.Tiles.GetUpperBound(1))
-                {
-                    if (tileLayer.Tiles[tileP.X, tileP.Y] == null)
-                    {
-                        onGround = false;
-                    }
-                    else
-                    {
-                        onGround = true;
-                        Position.Y = (tileP.Y * GameManager.Map.TileHeight) - 37;
-                    }
-                }
-            }
 
             // Check left
             x=-1;
@@ -404,18 +339,7 @@ namespace YouAreTheVillain
 
                 if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                 {
-                    if (Velocity.X < 0)
-                    {
-                        if (!onGround)
-                        {
-                            if (y == 1)
-                                collidedx = true;
-                        }
-                        else
-                        {
-                            collidedx = true;
-                        }
-                    }
+                    if (Velocity.X < 0) collidedx = true;
                     //Velocity.X = 0;
                 }
                 
@@ -432,47 +356,33 @@ namespace YouAreTheVillain
 
                 if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                 {
-                    if (Velocity.X > 0)
-                    {
-                        if (!onGround)
-                        {
-                            if (y == 1)
-                                collidedx = true;
-                        }
-                        else
-                        {
-                            collidedx = true;
-                        }
-                    }
+                    if (Velocity.X > 0) collidedx = true;
+                    //Velocity.X = 0;
                 }
 
             }
 
             // Check down
-            if (!onGround)
+            y = 1;
+            for (x = -1; x <= 1; x++)
             {
-                y = 1;
-                for (x = -1; x <= 1; x++)
+                Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2))) + (x*-10)) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2)+2))) / GameManager.Map.TileHeight));
+
+                if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
+                if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
+
+                if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
                 {
-                    Point tilePos = new Point((int)((Position.X + (x * ((frameSize.X / 2))) + (x * -10)) / GameManager.Map.TileWidth), (int)((Position.Y + (y * ((frameSize.Y / 2) + 2))) / GameManager.Map.TileHeight));
-
-                    if (tilePos.X < tileLayer.Tiles.GetLowerBound(0) || tilePos.X > tileLayer.Tiles.GetUpperBound(0)) continue;
-                    if (tilePos.Y < tileLayer.Tiles.GetLowerBound(1) || tilePos.Y > tileLayer.Tiles.GetUpperBound(1)) continue;
-
-                    if (tileLayer.Tiles[tilePos.X, tilePos.Y] != null)
+                    collidedy = true;
+                    
+                    if (Velocity.Y > 0)
                     {
-                        collidedy = true;
-
-                        if (Velocity.Y > 0)
-                        {
-                            Velocity.Y = 0;
-
-                        }
-                        Position.Y -= 1f;
-                        //Position.Y = (tilePos.Y * GameManager.Map.TileHeight) - 37;
+                        Velocity.Y = 0;
+                        
                     }
-
+                    Position.Y -= 1f;
                 }
+               
             }
 
             // Check up
@@ -498,7 +408,19 @@ namespace YouAreTheVillain
 
             }
 
-            
+            for (x = -1; x <= 1; x++)
+            {
+                Point tileP = new Point((int)((Position.X + (x * ((frameSize.X / 2)))) / GameManager.Map.TileWidth), (int)((Position.Y + (((frameSize.Y / 2) + 5))) / GameManager.Map.TileHeight));
+                if (tileP.X >= tileLayer.Tiles.GetLowerBound(0) && tileP.X <= tileLayer.Tiles.GetUpperBound(0) &&
+                    tileP.Y >= tileLayer.Tiles.GetLowerBound(1) && tileP.Y <= tileLayer.Tiles.GetUpperBound(1))
+                {
+                    if (tileLayer.Tiles[tileP.X, tileP.Y] == null)
+                    {
+                        onGround = false;
+                    }
+                    else onGround = true;
+                }
+            }
 
             if ((GameManager.princessPosition - Position).Length() < 64)
             {
@@ -512,7 +434,7 @@ namespace YouAreTheVillain
                 Position.X += Velocity.X;
                 if (Velocity.X < 4) Velocity.X += 0.5f;
             }
-            if (!collidedy && !onGround)
+            if (!collidedy)
             {
                 Velocity += Gravity;
                 Position.Y += Velocity.Y;
@@ -531,18 +453,15 @@ namespace YouAreTheVillain
 
                 foreach (MapObject o in objectlayer.Objects)
                 {
-                    if (o.Location.Contains(new Point((int)Position.X-10, (int)(Position.Y + (frameSize.Y/2)))))
+                    if (o.Location.Contains(new Point((int)Position.X, (int)(Position.Y + (frameSize.Y/2)))))
                     {
                         if(randomNumber.Next(10)==1 || (o.Properties["MustJump"].ToLower()=="true") && Velocity.Y>=0f)
                         {
-                            onGround = false;
                             if(o.Type=="Full")
                                 Velocity.Y=-13.5f;
 
                             if (o.Type == "Half")
                                 Velocity.Y = -11f;
-
-                            Position.Y += Velocity.Y;
 
                             if (Position.X > GameManager.Camera.Position.X && Position.X < GameManager.Camera.Position.X + GameManager.Camera.Width)
                                 AudioController.PlaySFX("jump", ((float)AudioController.randomNumber.NextDouble()*0.5f) - 0.25f);
@@ -550,11 +469,6 @@ namespace YouAreTheVillain
                     }
                 }
             }
-        }
-
-        int CalculateXPTNL(int lev)
-        {
-            return 50 * lev;
         }
     }
 }
