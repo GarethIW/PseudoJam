@@ -11,6 +11,7 @@ The jam will run from approximately 18:00 GMT 29/12/2012 until 18:00 GMT 31/12/2
 
 There will be a livestream as far as is possible at http://twitch.tv/garethiw - please join in with the chat for moral support!
 
+
 Executable!
 -----------
 
@@ -18,17 +19,24 @@ A Windows executable (zipped) is available here: https://skydrive.live.com/redir
 
 It will be updated sporadically throughout the 48 hours.
 
-It's been tested on a Windows 7 machine without any pre-reqs, but YMMV!
+The game requires OpenAL: http://connect.creativelabs.com/openal/Downloads/oalinst.zip
 
-If the executable doesn't launch, try installing OpenAL: http://connect.creativelabs.com/openal/Downloads/oalinst.zip
+It's been tested on a Windows 7 machine without any other pre-reqs, but YMMV!
 
 
-Code Shizzle
-------------
+Source Code
+-----------
 
-We're using: 
+In order to compile the solution, you'll need:
 
-- XNA
-- Monogame
+- Visual Studio 2012
+- The Windows Phone 8 SDK (For the XNA Content Pipeline which is compiled via a Windows Phone Game project)
+- Monogame DLLS (You can fork monogame and compile them or use the latest Monogame installer)
+- Windows 8 / Windows 8 SDK (ONLY to load/compile the Windows 8 project)
+
+You can also take the content and source and add them to a new XNA Game Studio 4 project in VS2010.
+
+Pre-existing code used:
+
 - TiledLib (https://bitbucket.org/nickgravelyn/tiledlib)
-- And possibly the XNA Gamestate Management library (http://xbox.create.msdn.com/en-US/education/catalog/sample/game_state_management)
+- The XNA Gamestate Management library (http://xbox.create.msdn.com/en-US/education/catalog/sample/game_state_management)
